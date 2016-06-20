@@ -1,6 +1,6 @@
 /*
  */
-package keboola.mailkit.extractor.config;
+package java.keboola.salesforce.writer.config;
 
 /**
  *

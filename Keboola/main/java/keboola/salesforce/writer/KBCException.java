@@ -1,6 +1,6 @@
 /*
  */
-package keboola.mailkit.extractor;
+package java.keboola.salesforce.writer;
 
 /**
  * Abstract class implementing exception with severity indicator

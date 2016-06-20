@@ -8,9 +8,8 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
-import keboola.salesforce.writer.config.JsonConfigParser;
-import keboola.salesforce.writer.config.KBCConfig;
-import keboola.salesforce.writer.config.KBCParameters;
+import java.keboola.salesforce.writer.config.JsonConfigParser;
+import java.keboola.salesforce.writer.config.KBCConfig;
 
 /**
  *
@@ -19,10 +18,6 @@ import keboola.salesforce.writer.config.KBCParameters;
  * @created 2016
  */
 public class Writer {
-
-	private final static int REQUEST_WAIT_INTERVAL = 0;
-	private final static boolean LOG = true;
-	private final static String logName = "log.txt";
 
 	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException {
 		if (args.length == 0) {
@@ -56,7 +51,7 @@ public class Writer {
 			System.exit(1);
 		}
 
-		BulkUpdate sfupd = new Writer();
+		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath);
 	}

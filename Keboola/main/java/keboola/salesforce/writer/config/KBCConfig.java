@@ -1,12 +1,10 @@
 /*
  */
-package keboola.salesforce.writer.config;
+package java.keboola.salesforce.writer.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

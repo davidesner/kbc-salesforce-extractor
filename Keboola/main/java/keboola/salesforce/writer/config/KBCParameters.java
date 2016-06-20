@@ -1,26 +1,14 @@
 /*
  */
-package keboola.salesforce.writer.config;
+package java.keboola.salesforce.writer.config;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +25,7 @@ public class KBCParameters {
     @JsonProperty("#password")
     private String password;
     @JsonProperty("#securitytoken")
-    private String password;
+    private String securitytoken;
     @JsonProperty("object")
     private String object;
     
@@ -113,15 +101,6 @@ public class KBCParameters {
 
             throw new ValidationException("Validation error: " + error);
         }
-    }
-
-    private boolean isValidRequest(String col) {
-        for (REQUEST_TYPE c : REQUEST_TYPE.values()) {
-            if (c.name().equals(col)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public String getLoginname() {
