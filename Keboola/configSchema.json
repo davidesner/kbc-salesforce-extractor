@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Salesforce writer KBC configuration",
+    "type": "object",
+    "properties": {
+        "loginname": {
+            "title": "Login Name",
+            "type": "string",
+            "description": "Login name for Salesforce"
+        },
+        "#password": {
+            "title": "Password",
+            "type": "string",
+            "description": "Salesforce password"
+        },
+      "#securitytoken": {
+            "title": "Security token",
+            "type": "string",
+            "description": "Salesforce security token"
+        },
+   "object": {
+            "title": "Object",
+            "type": "string",
+            "description": "Object to update"
+        }
+    },
+    "required": [
+        "loginname", "#password", "#securitytoken", "object"
+    ]
+}
+
