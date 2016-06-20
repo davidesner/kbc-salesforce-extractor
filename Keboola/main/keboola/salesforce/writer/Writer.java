@@ -1,4 +1,4 @@
-package java.keboola.salesforce.writer;
+package keboola.salesforce.writer;
 
 import java.io.*;
 import java.util.*;
@@ -8,8 +8,8 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
-import java.keboola.salesforce.writer.config.JsonConfigParser;
-import java.keboola.salesforce.writer.config.KBCConfig;
+import keboola.salesforce.writer.config.JsonConfigParser;
+import keboola.salesforce.writer.config.KBCConfig;
 
 /**
  *
