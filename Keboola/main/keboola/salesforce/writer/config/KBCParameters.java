@@ -28,6 +28,8 @@ public class KBCParameters {
     private String securitytoken;
     @JsonProperty("object")
     private String object;
+    @JsonProperty("sandbox")
+    private Boolean sandbox;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -43,12 +45,14 @@ public class KBCParameters {
         this.password = password;
         this.securitytoken = securitytoken;
         this.object = object;
+        this.sandbox = sandbox;
 
         //set param map
         parametersMap.put("loginname", loginname);
         parametersMap.put("password", password);
         parametersMap.put("securitytoken", securitytoken);
         parametersMap.put("object", object);
+        parametersMap.put("sandbox", sandbox);
 
     }
 
@@ -133,6 +137,13 @@ public class KBCParameters {
 
     public void setObject(String object) {
         this.object = object;
+    }
+    public boolean getSandbox() {
+        return sandbox;
+    }
+
+    public void setSandbox(boolean sandbox) {
+        this.sandbox = sandbox;
     }
 
 }

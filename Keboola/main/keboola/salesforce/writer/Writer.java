@@ -53,15 +53,15 @@ public class Writer {
 
 		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
-				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath);
+				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
 	}
 
 	/**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public void runUpdate(String sobjectType, String userName, String password, String sampleFileName)
+	public void runUpdate(String sobjectType, String userName, String password, String sampleFileName, boolean sandbox)
 			throws AsyncApiException, ConnectionException, IOException {
-		BulkConnection connection = getBulkConnection(userName, password);
+		BulkConnection connection = getBulkConnection(userName, password, sandbox);
 		JobInfo job = createJob(sobjectType, connection);
 		List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, sampleFileName);
 		closeJob(connection, job.getId());
@@ -165,12 +165,18 @@ public class Writer {
 	/**
 	 * Create the BulkConnection used to call Bulk API operations.
 	 */
-	private BulkConnection getBulkConnection(String userName, String password)
+	private BulkConnection getBulkConnection(String userName, String password, boolean sandbox)
 			throws ConnectionException, AsyncApiException {
 		ConnectorConfig partnerConfig = new ConnectorConfig();
 		partnerConfig.setUsername(userName);
 		partnerConfig.setPassword(password);
-		partnerConfig.setAuthEndpoint("https://login.salesforce.com/services/Soap/u/36.0");
+		if ( sandbox == true)  {
+			System.out.println("Connecting to Salesforce Sandbox");
+			partnerConfig.setAuthEndpoint("https://test.salesforce.com/services/Soap/u/36.0");
+		} else {
+			System.out.println("Connecting to Salesforce Production");
+			partnerConfig.setAuthEndpoint("https://login.salesforce.com/services/Soap/u/36.0");			
+		}
 		// Creating the connection automatically handles login and stores
 		// the session in partnerConfig
 		new PartnerConnection(partnerConfig);
