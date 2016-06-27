@@ -23,6 +23,12 @@
             "type": "string",
             "description": "Object to update"
         }
+,
+   "sandbox": {
+            "title": "Sandbox",
+            "type": "boolean",
+            "description": "True if you wish to update records in sandbox"
+        }
     },
     "required": [
         "loginname", "#password", "#securitytoken", "object"
