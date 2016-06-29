@@ -77,7 +77,7 @@ public class Writer {
     	for (int i = 0; i < listOfFiles.length; i++) {
       	if (listOfFiles[i].isFile()) {
 			 String fileName = listOfFiles[i].getName().toString();
-			 String fileNameShort = fileName.split('.',1);
+			 String fileNameShort = fileName.split('\.',1);
    		     System.out.println( "found file " + fileName + ", object " + fileNameShort);
 			JobInfo job = createJob( fileNameShort, connection);
 			List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
