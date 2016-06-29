@@ -14,9 +14,12 @@ import java.io.IOException;
 public class JsonConfigParser {
 
     public static KBCConfig parseFile(File file) throws IOException {
+   		System.out.println( "KBC Config parseFile start");
+
         final ObjectMapper mapper = new ObjectMapper(new JsonFactory());
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.findAndRegisterModules();
+   		System.out.println( "KBC Config parseFile end");
         return mapper.readValue(file, KBCConfig.class);
     }
 
