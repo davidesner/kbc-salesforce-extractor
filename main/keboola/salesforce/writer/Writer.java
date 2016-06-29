@@ -30,16 +30,9 @@ public class Writer {
 
     	System.out.println("start, sep " + File.separator + ", data path: " + dataPath);
 		
-		File folder = new File( dataPath);
-File[] listOfFiles = folder.listFiles();
-
-    for (int i = 0; i < listOfFiles.length; i++) {
-      if (listOfFiles[i].isFile()) {
-        System.out.println("File " + listOfFiles[i].getName());
-      } else if (listOfFiles[i].isDirectory()) {
-        System.out.println("Directory " + listOfFiles[i].getName());
-      }
-    }
+		File curDir = new File(".");
+        getAllFiles(curDir);
+        
 		
 		KBCConfig config = null;
 		File confFile = new File(args[0] + File.separator + "config.json");
@@ -69,7 +62,17 @@ File[] listOfFiles = folder.listFiles();
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
 				
 	}
+private static void getAllFiles(File curDir) {
 
+        File[] filesList = curDir.listFiles();
+        for(File f : filesList){
+            if(f.isDirectory())
+                getAllFiles(f);
+            if(f.isFile()){
+                System.out.println(f.getName());
+            }
+        }
+		}
 	/**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
