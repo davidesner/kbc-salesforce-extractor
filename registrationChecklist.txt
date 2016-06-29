@@ -8,8 +8,8 @@
 7: Prague
 8: kbc@htns.cz
 9: https://bitbucket.org/mhumpolec/keboola/src/master/LICENSE.md?at=master&fileviewer=file-view-default
-10
-11:
+10: https://hub.docker.com/r/mhumpolec/keboola
+11: latest
 12: 4GB
 13: 3600
 14: json
