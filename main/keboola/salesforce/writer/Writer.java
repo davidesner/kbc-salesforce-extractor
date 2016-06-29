@@ -26,7 +26,7 @@ public class Writer {
 			System.exit(1);
 		}
 
-		String dataPath = args[0];
+/*		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
 
 		KBCConfig config = null;
@@ -55,6 +55,7 @@ public class Writer {
 		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
+				*/
 	}
 
 	/**
