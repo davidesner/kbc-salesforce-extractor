@@ -51,6 +51,7 @@ public class KBCParameters {
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
             @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") String object
     ) throws ParseException {
+           		System.out.println( "KBCParameters public start");
         parametersMap = new HashMap();
         this.loginname = loginname;
         this.password = password;
