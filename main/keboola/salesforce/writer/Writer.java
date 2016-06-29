@@ -28,9 +28,6 @@ public class Writer {
 		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
 		
-		File curDir = new File(".");
-        getAllFiles(curDir);
-        
     	System.out.println("looking for config");
 		
 		KBCConfig config = null;
@@ -63,18 +60,9 @@ public class Writer {
 				
    		System.out.println( "All done");
 	}
-private static void getAllFiles(File curDir) {
 
-        File[] filesList = curDir.listFiles();
-        for(File f : filesList){
-            if(f.isDirectory())
-                getAllFiles(f);
-            if(f.isFile()){
-                System.out.println(f.getPath() + "/" + f.getName());
-            }
-        }
-		}
-	/**
+
+/**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
 	public void runUpdate(String sobjectType, String userName, String password, String sampleFileName, boolean sandbox)
