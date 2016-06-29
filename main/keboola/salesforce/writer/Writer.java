@@ -20,6 +20,7 @@ import keboola.salesforce.writer.config.KBCConfig;
 public class Writer {
 
 	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException {
+			System.out.println("start");
 		if (args.length == 0) {
 			System.out.print("No parameters provided.");
 			System.exit(1);
