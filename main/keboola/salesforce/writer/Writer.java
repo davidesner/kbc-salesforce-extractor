@@ -27,8 +27,6 @@ public class Writer {
 
 		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
-
-    	System.out.println("start, sep " + File.separator + ", data path: " + dataPath);
 		
 		File curDir = new File(".");
         getAllFiles(curDir);
@@ -58,10 +56,12 @@ public class Writer {
 			System.exit(1);
 		}
 
+   		System.out.println( "Everything ready, write to Salesforce, loginname: " + config.getParams().getLoginname());
 		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
 				
+   		System.out.println( "All done");
 	}
 private static void getAllFiles(File curDir) {
 
@@ -79,12 +79,15 @@ private static void getAllFiles(File curDir) {
 	 */
 	public void runUpdate(String sobjectType, String userName, String password, String sampleFileName, boolean sandbox)
 			throws AsyncApiException, ConnectionException, IOException {
+   		System.out.println( "runUpdate start");
+
 		BulkConnection connection = getBulkConnection(userName, password, sandbox);
 		JobInfo job = createJob(sobjectType, connection);
 		List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, sampleFileName);
 		closeJob(connection, job.getId());
 		awaitCompletion(connection, job, batchInfoList);
 		checkResults(connection, job, batchInfoList);
+   		System.out.println( "runUpdate end");
 	}
 
 	/**
@@ -93,6 +96,7 @@ private static void getAllFiles(File curDir) {
 	private void checkResults(BulkConnection connection, JobInfo job, List<BatchInfo> batchInfoList)
 			throws AsyncApiException, IOException {
 		// batchInfoList was populated when batches were created and submitted
+   		System.out.println( "checkResult start");
 		for (BatchInfo b : batchInfoList) {
 			CSVReader rdr = new CSVReader(connection.getBatchResultStream(job.getId(), b.getId()));
 			List<String> resultHeader = rdr.nextRecord();
@@ -118,10 +122,12 @@ private static void getAllFiles(File curDir) {
 	}
 
 	private void closeJob(BulkConnection connection, String jobId) throws AsyncApiException {
+   		System.out.println( "closeJob start");
 		JobInfo job = new JobInfo();
 		job.setId(jobId);
 		job.setState(JobStateEnum.Closed);
 		connection.updateJob(job);
+   		System.out.println( "closeJob end");
 	}
 
 	/**
@@ -171,6 +177,7 @@ private static void getAllFiles(File curDir) {
 	 * @throws AsyncApiException
 	 */
 	private JobInfo createJob(String sobjectType, BulkConnection connection) throws AsyncApiException {
+   		System.out.println( "createJob start");
 		JobInfo job = new JobInfo();
 		job.setObject(sobjectType);
 		job.setOperation(OperationEnum.update);
@@ -178,6 +185,7 @@ private static void getAllFiles(File curDir) {
 		job = connection.createJob(job);
 		System.out.println(job);
 		return job;
+   		System.out.println( "createJob end");
 	}
 
 	/**
@@ -185,6 +193,7 @@ private static void getAllFiles(File curDir) {
 	 */
 	private BulkConnection getBulkConnection(String userName, String password, boolean sandbox)
 			throws ConnectionException, AsyncApiException {
+   		System.out.println( "getBulkConnection start");
 		ConnectorConfig partnerConfig = new ConnectorConfig();
 		partnerConfig.setUsername(userName);
 		partnerConfig.setPassword(password);
@@ -216,6 +225,7 @@ private static void getAllFiles(File curDir) {
 		config.setTraceMessage(false);
 		BulkConnection connection = new BulkConnection(config);
 		return connection;
+   		System.out.println( "getBulkConnection end");
 	}
 
 	/**
@@ -231,6 +241,7 @@ private static void getAllFiles(File curDir) {
 	 */
 	private List<BatchInfo> createBatchesFromCSVFile(BulkConnection connection, JobInfo jobInfo, String csvFileName)
 			throws IOException, AsyncApiException {
+   		System.out.println( createBatchesFromCSVFile start");
 		List<BatchInfo> batchInfos = new ArrayList<BatchInfo>();
 		BufferedReader rdr = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileName)));
 		// read the CSV header row
@@ -273,6 +284,8 @@ private static void getAllFiles(File curDir) {
 			tmpFile.delete();
 		}
 		return batchInfos;
+   		System.out.println( "createBatchesFromCSVFile end");
+
 	}
 
 	/**
@@ -294,6 +307,7 @@ private static void getAllFiles(File curDir) {
 	 */
 	private void createBatch(FileOutputStream tmpOut, File tmpFile, List<BatchInfo> batchInfos,
 			BulkConnection connection, JobInfo jobInfo) throws IOException, AsyncApiException {
+   		System.out.println( "createBatch start");
 		tmpOut.flush();
 		tmpOut.close();
 		FileInputStream tmpInputStream = new FileInputStream(tmpFile);
@@ -305,6 +319,8 @@ private static void getAllFiles(File curDir) {
 		} finally {
 			tmpInputStream.close();
 		}
+		System.out.println( "createBatch end");
+
 	}
 
 }
