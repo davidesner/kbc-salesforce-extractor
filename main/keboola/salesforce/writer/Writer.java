@@ -33,6 +33,7 @@ public class Writer {
 		File curDir = new File(".");
         getAllFiles(curDir);
         
+    	System.out.println("looking for config");
 		
 		KBCConfig config = null;
 		File confFile = new File(args[0] + File.separator + "config.json");
