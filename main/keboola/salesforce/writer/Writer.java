@@ -241,7 +241,7 @@ private static void getAllFiles(File curDir) {
 	 */
 	private List<BatchInfo> createBatchesFromCSVFile(BulkConnection connection, JobInfo jobInfo, String csvFileName)
 			throws IOException, AsyncApiException {
-   		System.out.println( createBatchesFromCSVFile start");
+   		System.out.println( "createBatchesFromCSVFile start");
 		List<BatchInfo> batchInfos = new ArrayList<BatchInfo>();
 		BufferedReader rdr = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileName)));
 		// read the CSV header row
