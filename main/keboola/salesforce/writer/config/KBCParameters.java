@@ -32,6 +32,8 @@ public class KBCParameters {
     private Boolean sandbox;
     
     public KBCParameters() {
+           		System.out.println( "KBCParameters start");
+
         parametersMap = new HashMap();
 
     }
@@ -94,6 +96,8 @@ public class KBCParameters {
     }
 
     public boolean validateParametres() throws ValidationException {
+           		System.out.println( "validateParametres start");
+
         //validate date format
         String error = "";
 
@@ -108,6 +112,8 @@ public class KBCParameters {
     }
 
     public String getLoginname() {
+           		System.out.println( "getLoginname start");
+
         return loginname;
     }
 
