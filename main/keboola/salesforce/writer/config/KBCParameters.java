@@ -35,8 +35,6 @@ public class KBCParameters {
     private String password;
     @JsonProperty("#securitytoken")
     private String securitytoken;
-    @JsonProperty("object")
-    private String object;
     @JsonProperty("sandbox")
     private Boolean sandbox;
     
@@ -49,21 +47,19 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") String object
+            @JsonProperty("#securitytoken") String securitytoken
     ) throws ParseException {
            		System.out.println( "KBCParameters public start");
         parametersMap = new HashMap();
         this.loginname = loginname;
         this.password = password;
         this.securitytoken = securitytoken;
-        this.object = object;
         this.sandbox = sandbox;
 
         //set param map
         parametersMap.put("loginname", loginname);
         parametersMap.put("password", password);
         parametersMap.put("securitytoken", securitytoken);
-        parametersMap.put("object", object);
         parametersMap.put("sandbox", sandbox);
 
     }
@@ -147,13 +143,6 @@ public class KBCParameters {
         this.securitytoken = securitytoken;
     }
 
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
     public boolean getSandbox() {
         return sandbox;
     }
