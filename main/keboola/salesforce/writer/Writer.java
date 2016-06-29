@@ -26,7 +26,7 @@ public class Writer {
 		}
 
 		String dataPath = args[0];
-		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
+		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables" + File.separator;
 		
     	System.out.println("looking for config");
 		
@@ -55,7 +55,7 @@ public class Writer {
 
    		System.out.println( "Everything ready, write to Salesforce, loginname: " + config.getParams().getLoginname());
 		Writer sfupd = new Writer();
-		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
+		sfupd.runUpdate(config.getParams().getLoginname(),
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
 				
    		System.out.println( "All done");
@@ -65,16 +65,27 @@ public class Writer {
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public void runUpdate(String sobjectType, String userName, String password, String sampleFileName, boolean sandbox)
+	public void runUpdate(String userName, String password, String filesDirectory, boolean sandbox)
 			throws AsyncApiException, ConnectionException, IOException {
    		System.out.println( "runUpdate start");
 
 		BulkConnection connection = getBulkConnection(userName, password, sandbox);
-		JobInfo job = createJob(sobjectType, connection);
-		List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, sampleFileName);
-		closeJob(connection, job.getId());
-		awaitCompletion(connection, job, batchInfoList);
-		checkResults(connection, job, batchInfoList);
+		
+		File folder = new File( filesDirectory);
+		File[] listOfFiles = folder.listFiles();
+
+    	for (int i = 0; i < listOfFiles.length; i++) {
+      	if (listOfFiles[i].isFile()) {
+   		     System.out.println( "found file " + listOfFiles[i].getName());
+			JobInfo job = createJob(listOfFiles[i].getName().replace('.csv',''), connection);
+			List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
+			closeJob(connection, job.getId());
+			awaitCompletion(connection, job, batchInfoList);
+			checkResults(connection, job, batchInfoList);
+        	System.out.println("File " + );
+      	  }
+    	}
+		
    		System.out.println( "runUpdate end");
 	}
 
@@ -165,7 +176,7 @@ public class Writer {
 	 * @throws AsyncApiException
 	 */
 	private JobInfo createJob(String sobjectType, BulkConnection connection) throws AsyncApiException {
-   		System.out.println( "createJob start");
+   		System.out.println( "createJob start, object: " + sobjectType);
 		JobInfo job = new JobInfo();
 		job.setObject(sobjectType);
 		job.setOperation(OperationEnum.update);
@@ -229,7 +240,7 @@ public class Writer {
 	 */
 	private List<BatchInfo> createBatchesFromCSVFile(BulkConnection connection, JobInfo jobInfo, String csvFileName)
 			throws IOException, AsyncApiException {
-   		System.out.println( "createBatchesFromCSVFile start");
+   		System.out.println( "createBatchesFromCSVFile start, file: " + csvFileName);
 		List<BatchInfo> batchInfos = new ArrayList<BatchInfo>();
 		BufferedReader rdr = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileName)));
 		// read the CSV header row
