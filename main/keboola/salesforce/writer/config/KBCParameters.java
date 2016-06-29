@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class KBCParameters {
 
-    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken", "object"};
+    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken"};
     private final Map<String, Object> parametersMap;
 
     @JsonProperty("loginname")
