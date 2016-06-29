@@ -13,6 +13,7 @@
     </properties>
 
     <build>
+    <sourceDirectory>${project.basedir}/main</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
