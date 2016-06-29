@@ -18,12 +18,7 @@
             "type": "string",
             "description": "Salesforce security token"
         },
-   "object": {
-            "title": "Object",
-            "type": "string",
-            "description": "Object to update"
-        }
-,
+   
    "sandbox": {
             "title": "Sandbox",
             "type": "boolean",
