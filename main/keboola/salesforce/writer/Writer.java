@@ -20,7 +20,6 @@ import keboola.salesforce.writer.config.KBCConfig;
 public class Writer {
 //
 	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
-			System.out.println("start");
 		if (args.length == 0) {
 			System.out.print("No parameters provided.");
 			System.exit(1);
@@ -29,6 +28,7 @@ public class Writer {
 		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
 
+    	System.out.println("start, sep " + File.separator + ", data path: " + dataPath);
 		KBCConfig config = null;
 		File confFile = new File(args[0] + File.separator + "config.json");
 		if (!confFile.exists()) {
