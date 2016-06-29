@@ -38,13 +38,10 @@
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-        
       <dependency>
     <groupId>kz.idsoftware.sforce</groupId>
     <artifactId>sforce-partner-api</artifactId>
     <version>35.0</version>
 </dependency>
-
-        
    </dependencies>
 </project>
