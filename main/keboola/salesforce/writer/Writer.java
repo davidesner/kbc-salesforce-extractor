@@ -184,8 +184,8 @@ private static void getAllFiles(File curDir) {
 		job.setContentType(ContentType.CSV);
 		job = connection.createJob(job);
 		System.out.println(job);
-		return job;
    		System.out.println( "createJob end");
+		return job;
 	}
 
 	/**
@@ -224,8 +224,8 @@ private static void getAllFiles(File curDir) {
 		// Set this to true to see HTTP requests and responses on stdout
 		config.setTraceMessage(false);
 		BulkConnection connection = new BulkConnection(config);
-		return connection;
    		System.out.println( "getBulkConnection end");
+		return connection;
 	}
 
 	/**
@@ -283,8 +283,8 @@ private static void getAllFiles(File curDir) {
 		} finally {
 			tmpFile.delete();
 		}
-		return batchInfos;
    		System.out.println( "createBatchesFromCSVFile end");
+		return batchInfos;
 
 	}
 
