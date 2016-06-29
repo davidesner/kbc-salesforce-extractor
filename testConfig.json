@@ -1,8 +1,7 @@
 {
  "loginname": "username@nekde.cz", "#password": "12345678",
       "#securitytoken": "vcxgdgde",
-   "object": "account"
-,
+   
    "sandbox": false
 }
 
