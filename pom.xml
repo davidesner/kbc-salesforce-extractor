@@ -39,12 +39,12 @@
             <version>${jackson.version}</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/com.force.api/force-partner-api -->
-<dependency>
-    <groupId>com.force.api</groupId>
-    <artifactId>force-partner-api</artifactId>
-    <version>36.0.0</version>
+      <dependency>
+    <groupId>kz.idsoftware.sforce</groupId>
+    <artifactId>sforce-partner-api</artifactId>
+    <version>35.0</version>
 </dependency>
+
         
    </dependencies>
 </project>
