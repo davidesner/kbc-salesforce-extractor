@@ -1,5 +1,5 @@
 FROM maven:3-jdk-8
-MAINTAINER David Esner <esnerda@gmail.com>
+MAINTAINER Martin Humpolec <kbc@htns.cz>
 
 ENV APP_VERSION 1.1.0
  WORKDIR /home
