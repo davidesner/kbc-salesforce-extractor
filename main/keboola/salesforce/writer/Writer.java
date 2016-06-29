@@ -70,7 +70,7 @@ private static void getAllFiles(File curDir) {
             if(f.isDirectory())
                 getAllFiles(f);
             if(f.isFile()){
-                System.out.println(f.getName());
+                System.out.println(f.getPath() + "/" + f.getName());
             }
         }
 		}
