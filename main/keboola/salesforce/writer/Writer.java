@@ -18,15 +18,15 @@ import keboola.salesforce.writer.config.KBCConfig;
  * @created 2016
  */
 public class Writer {
-//throws AsyncApiException, ConnectionException, IOException
-	public static void main(String[] args)   {
+//
+	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
 			System.out.println("start");
 		if (args.length == 0) {
 			System.out.print("No parameters provided.");
 			System.exit(1);
 		}
 
-/*		String dataPath = args[0];
+		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables";
 
 		KBCConfig config = null;
@@ -55,7 +55,7 @@ public class Writer {
 		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getObject(), config.getParams().getLoginname(),
 				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
-				*/
+				
 	}
 
 	/**
