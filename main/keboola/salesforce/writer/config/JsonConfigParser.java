@@ -24,6 +24,7 @@ public class JsonConfigParser {
     }
 
     public static Object parseFile(File file, Class type) throws IOException {
+   		System.out.println( "KBC Config parseFile object start");
         final ObjectMapper mapper = new ObjectMapper(new JsonFactory());
         mapper.findAndRegisterModules();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
