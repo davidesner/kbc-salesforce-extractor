@@ -9,6 +9,7 @@ import java.util.List;
 /**
  *
  * @author David Esner <esnerda at gmail.com>
+ * @updated Martin Humpolec <kbc at htns.cz>
  * @created 2015
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,15 +26,11 @@ public class KBCConfig {
     }
 
     public KBCConfig(KBCStorage storage, KBCParameters params) {
-           		System.out.println( "KBCConfig start");
-
         this.storage = storage;
         this.params = params;
     }
 
     public boolean validate() {
-           		System.out.println( "validate start");
-
         try {
             return params.validateParametres();
         } catch (ValidationException ex) {
@@ -68,8 +65,6 @@ public class KBCConfig {
     }
 
     public KBCParameters getParams() {
-           		System.out.println( "getParams start");
-
         return params;
     }
 
