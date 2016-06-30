@@ -103,25 +103,20 @@ public class Writer {
    		System.out.println( "checkResult start");
 		for (BatchInfo b : batchInfoList) {
 			try {
-				System.out.println( "checkResult CSV reader");
 				CSVReader rdr = new CSVReader(connection.getBatchResultStream(job.getId(), b.getId()));
 				List<String> resultHeader = rdr.nextRecord();
 				int resultCols = resultHeader.size();
-				System.out.println( "checkResult size: " + resultCols);
 
 				List<String> row;
 				while ((row = rdr.nextRecord()) != null) {
-					System.out.println( "checkResult Map");
 					Map<String, String> resultInfo = new HashMap<String, String>();
 					for (int i = 0; i < resultCols; i++) {
-						System.out.println( "checkResult Adding results");
 						resultInfo.put(resultHeader.get(i), row.get(i));
 					}
 					boolean success = Boolean.valueOf(resultInfo.get("Success"));
 					boolean created = Boolean.valueOf(resultInfo.get("Created"));
 					String id = resultInfo.get("Id");
 					String error = resultInfo.get("Error");
-					System.out.println( "checkResult errors?");
 
 					if (success && created) {
 						System.out.println("Updated row with id " + id);
@@ -172,11 +167,9 @@ public class Writer {
 			try {
 				BatchInfo[] statusList = connection.getBatchInfoList(job.getId()).getBatchInfo();
 				for (BatchInfo b : statusList) {
-					if ( b.getState() == BatchStateEnum.Failed) {
-						if( b.getStateMessage() != null) { System.err.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());}
-					}
 					if (b.getState() == BatchStateEnum.Completed || b.getState() == BatchStateEnum.Failed) {
 						System.out.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());
+						if( b.getStateMessage() != null) { System.err.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());}
 						if (incomplete.remove(b.getId())) {
 							System.out.println("BATCH STATUS:\n" + b);
 						}
