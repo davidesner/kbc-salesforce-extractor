@@ -102,20 +102,26 @@ public class Writer {
 		// batchInfoList was populated when batches were created and submitted
    		System.out.println( "checkResult start");
 		for (BatchInfo b : batchInfoList) {
+	   		System.out.println( "checkResult CSV reader");
 			CSVReader rdr = new CSVReader(connection.getBatchResultStream(job.getId(), b.getId()));
 			List<String> resultHeader = rdr.nextRecord();
 			int resultCols = resultHeader.size();
+	   		System.out.println( "checkResult size: " + resultCols);
 
 			List<String> row;
 			while ((row = rdr.nextRecord()) != null) {
+		   		System.out.println( "checkResult Map");
 				Map<String, String> resultInfo = new HashMap<String, String>();
 				for (int i = 0; i < resultCols; i++) {
+			   		System.out.println( "checkResult Adding results");
 					resultInfo.put(resultHeader.get(i), row.get(i));
 				}
 				boolean success = Boolean.valueOf(resultInfo.get("Success"));
 				boolean created = Boolean.valueOf(resultInfo.get("Created"));
 				String id = resultInfo.get("Id");
 				String error = resultInfo.get("Error");
+		   		System.out.println( "checkResult errors?");
+
 				if (success && created) {
 					System.out.println("Updated row with id " + id);
 				} else if (!success) {
