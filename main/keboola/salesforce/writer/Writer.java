@@ -173,7 +173,7 @@ public class Writer {
 				BatchInfo[] statusList = connection.getBatchInfoList(job.getId()).getBatchInfo();
 				for (BatchInfo b : statusList) {
 					if ( b.getState() == BatchStateEnum.Failed) {
-						if( b.getStateMessage() != NULL) { System.err.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());}
+						if( b.getStateMessage() != null) { System.err.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());}
 					}
 					if (b.getState() == BatchStateEnum.Completed || b.getState() == BatchStateEnum.Failed) {
 						System.out.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());
