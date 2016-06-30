@@ -21,14 +21,12 @@ public class Writer {
 //
 	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
 		if (args.length == 0) {
-			System.out.print("No parameters provided.");
+			System.err.println("No parameters provided.");
 			System.exit(1);
 		}
 
 		String dataPath = args[0];
 		String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables" + File.separator;
-		
-    	System.out.println("looking for config");
 		
 		KBCConfig config = null;
 		File confFile = new File(args[0] + File.separator + "config.json");
@@ -67,8 +65,6 @@ public class Writer {
 	 */
 	public void runUpdate(String userName, String password, String filesDirectory, boolean sandbox)
 			throws AsyncApiException, ConnectionException, IOException {
-   		System.out.println( "runUpdate start");
-
 		BulkConnection connection = getBulkConnection(userName, password, sandbox);
 		
 		File folder = new File( filesDirectory);
@@ -90,8 +86,6 @@ public class Writer {
 			}
       	  }
     	}
-		
-   		System.out.println( "runUpdate end");
 	}
 
 	/**
@@ -100,7 +94,6 @@ public class Writer {
 	private void checkResults(BulkConnection connection, JobInfo job, List<BatchInfo> batchInfoList)
 			throws AsyncApiException, IOException {
 		// batchInfoList was populated when batches were created and submitted
-   		System.out.println( "checkResult start");
 		for (BatchInfo b : batchInfoList) {
 			try {
 				CSVReader rdr = new CSVReader(connection.getBatchResultStream(job.getId(), b.getId()));
@@ -131,12 +124,10 @@ public class Writer {
 	}
 
 	private void closeJob(BulkConnection connection, String jobId) throws AsyncApiException {
-   		System.out.println( "closeJob start");
 		JobInfo job = new JobInfo();
 		job.setId(jobId);
 		job.setState(JobStateEnum.Closed);
 		connection.updateJob(job);
-   		System.out.println( "closeJob end");
 	}
 
 	/**
@@ -168,10 +159,9 @@ public class Writer {
 				BatchInfo[] statusList = connection.getBatchInfoList(job.getId()).getBatchInfo();
 				for (BatchInfo b : statusList) {
 					if (b.getState() == BatchStateEnum.Completed || b.getState() == BatchStateEnum.Failed) {
-						System.out.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());
-						if( b.getStateMessage() != null) { System.err.println("BATCH STATUS MESSAGE:\n" + b.getStateMessage());}
+						if( b.getStateMessage() != null) { System.err.println("BATCH STATUS MESSAGE: " + b.getStateMessage());}
 						if (incomplete.remove(b.getId())) {
-							System.out.println("BATCH STATUS:\n" + b);
+// debug only							System.out.println("BATCH STATUS:\n" + b);
 						}
 					}
 				}
@@ -192,15 +182,13 @@ public class Writer {
 	 * @throws AsyncApiException
 	 */
 	private JobInfo createJob(String sobjectType, BulkConnection connection) throws AsyncApiException {
-   		System.out.println( "createJob start, object: " + sobjectType);
 		try {
 			JobInfo job = new JobInfo();
 			job.setObject(sobjectType);
 			job.setOperation(OperationEnum.update);
 			job.setContentType(ContentType.CSV);
 			job = connection.createJob(job);
-			System.out.println(job);
-			System.out.println( "createJob end");
+// debug only			System.out.println(job);
 			return job;
 		}
 		catch ( Exception e) {
@@ -214,7 +202,6 @@ public class Writer {
 	 */
 	private BulkConnection getBulkConnection(String userName, String password, boolean sandbox)
 			throws ConnectionException, AsyncApiException {
-   		System.out.println( "getBulkConnection start");
 		ConnectorConfig partnerConfig = new ConnectorConfig();
 		partnerConfig.setUsername(userName);
 		partnerConfig.setPassword(password);
@@ -245,7 +232,6 @@ public class Writer {
 		// Set this to true to see HTTP requests and responses on stdout
 		config.setTraceMessage(false);
 		BulkConnection connection = new BulkConnection(config);
-   		System.out.println( "getBulkConnection end");
 		return connection;
 	}
 
@@ -262,7 +248,6 @@ public class Writer {
 	 */
 	private List<BatchInfo> createBatchesFromCSVFile(BulkConnection connection, JobInfo jobInfo, String csvFileName)
 			throws IOException, AsyncApiException {
-   		System.out.println( "createBatchesFromCSVFile start, file: " + csvFileName);
 		List<BatchInfo> batchInfos = new ArrayList<BatchInfo>();
 		BufferedReader rdr = new BufferedReader(new InputStreamReader(new FileInputStream(csvFileName)));
 		// read the CSV header row
@@ -304,7 +289,6 @@ public class Writer {
 		} finally {
 			tmpFile.delete();
 		}
-   		System.out.println( "createBatchesFromCSVFile end");
 		return batchInfos;
 
 	}
@@ -328,20 +312,17 @@ public class Writer {
 	 */
 	private void createBatch(FileOutputStream tmpOut, File tmpFile, List<BatchInfo> batchInfos,
 			BulkConnection connection, JobInfo jobInfo) throws IOException, AsyncApiException {
-   		System.out.println( "createBatch start");
 		tmpOut.flush();
 		tmpOut.close();
 		FileInputStream tmpInputStream = new FileInputStream(tmpFile);
 		try {
 			BatchInfo batchInfo = connection.createBatchFromStream(jobInfo, tmpInputStream);
-			System.out.println(batchInfo);
+//	debug only		System.out.println(batchInfo);
 			batchInfos.add(batchInfo);
 
 		} finally {
 			tmpInputStream.close();
 		}
-		System.out.println( "createBatch end");
-
 	}
 
 }
