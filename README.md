@@ -1,29 +1,19 @@
-# README #
+# Salesforce Writer #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Salesforce Writer component for Keboola Connection.
 
-### What is this repository for? ###
+### Functionality ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+The component takes files from in/tables directory and update appropriate records. Name of object, which will be updated, is taken from the file name (e.g. account.csv will update object Account). CSV file has to have a header with field names, which have to exists in Salesforce. ID column is used to identify record which will be updated.
 
-### How do I get set up? ###
+Would you need to empty values in a field, use #N/A as text value of appropriate records.
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+The component doesn't create nor delete records in Salesforce.
 
-### Contribution guidelines ###
+### Configuration ###
+#### Parameters ####
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Loginname - (REQ) your user name, when updating data in sandbox don't forget to add .sandboxname at the end
+* Password - (REQ) your password
+* Security Token - (REQ) your security token, don't forget it is different for sandbox
+* sandbox - (REQ) true when you want to update data in sandbox
