@@ -79,12 +79,14 @@ public class Writer {
 			 String fileName = listOfFiles[i].getName().toString();
 			 int position = fileName.indexOf('.');
 			 String fileNameShort = fileName.substring( 0, position);
-   		     System.out.println( "found file " + fileName + ", object " + fileNameShort);
-			JobInfo job = createJob( fileNameShort, connection);
-			List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
-			closeJob(connection, job.getId());
-			awaitCompletion(connection, job, batchInfoList);
-			checkResults(connection, job, batchInfoList);
+			 if( !fileName.endsWith( 'manifest')) {
+				System.out.println( "found file " + fileName + ", object " + fileNameShort);
+				JobInfo job = createJob( fileNameShort, connection);
+				List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
+				closeJob(connection, job.getId());
+				awaitCompletion(connection, job, batchInfoList);
+				checkResults(connection, job, batchInfoList);
+			}
       	  }
     	}
 		
