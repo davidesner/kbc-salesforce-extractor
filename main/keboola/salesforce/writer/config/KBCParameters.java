@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author David Esner <esnerda at gmail.com>
+ * @updated Martin Humpolec <kbc at htns.cz>
  * @created 2015
  */
 public class KBCParameters {
@@ -39,8 +40,6 @@ public class KBCParameters {
     private Boolean sandbox;
     
     public KBCParameters() {
-           		System.out.println( "KBCParameters start");
-
         parametersMap = new HashMap();
 
     }
@@ -49,7 +48,6 @@ public class KBCParameters {
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
             @JsonProperty("#securitytoken") String securitytoken
     ) throws ParseException {
-           		System.out.println( "KBCParameters public start");
         parametersMap = new HashMap();
         this.loginname = loginname;
         this.password = password;
@@ -102,8 +100,6 @@ public class KBCParameters {
     }
 
     public boolean validateParametres() throws ValidationException {
-           		System.out.println( "validateParametres start");
-
         //validate date format
         String error = "";
 
@@ -118,8 +114,6 @@ public class KBCParameters {
     }
 
     public String getLoginname() {
-           		System.out.println( "getLoginname start");
-
         return loginname;
     }
 
