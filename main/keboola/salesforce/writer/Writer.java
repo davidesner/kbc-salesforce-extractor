@@ -79,7 +79,7 @@ public class Writer {
 			 String fileName = listOfFiles[i].getName().toString();
 			 int position = fileName.indexOf('.');
 			 String fileNameShort = fileName.substring( 0, position);
-			 if( !fileName.endsWith( 'manifest')) {
+			 if( fileName.endsWith( 'manifest') == false) {
 				System.out.println( "found file " + fileName + ", object " + fileNameShort);
 				JobInfo job = createJob( fileNameShort, connection);
 				List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
