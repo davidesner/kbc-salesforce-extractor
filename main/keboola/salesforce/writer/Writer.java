@@ -188,14 +188,20 @@ public class Writer {
 	 */
 	private JobInfo createJob(String sobjectType, BulkConnection connection) throws AsyncApiException {
    		System.out.println( "createJob start, object: " + sobjectType);
-		JobInfo job = new JobInfo();
-		job.setObject(sobjectType);
-		job.setOperation(OperationEnum.update);
-		job.setContentType(ContentType.CSV);
-		job = connection.createJob(job);
-		System.out.println(job);
-   		System.out.println( "createJob end");
-		return job;
+		try {
+			JobInfo job = new JobInfo();
+			job.setObject(sobjectType);
+			job.setOperation(OperationEnum.update);
+			job.setContentType(ContentType.CSV);
+			job = connection.createJob(job);
+			System.out.println(job);
+			System.out.println( "createJob end");
+			return job;
+		}
+		catch ( Exception e) {
+			System.err.println( "createJob error " + e.getMessage() );
+			return null;
+		}
 	}
 
 	/**
