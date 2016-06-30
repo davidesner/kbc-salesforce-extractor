@@ -6,17 +6,24 @@
         "loginname": {
             "title": "Login Name",
             "type": "string",
-            "description": "Login name for Salesforce"
+            "description": "Login name for Salesforce",
+            "minLength": 1,
+      "default": ""
         },
         "#password": {
             "title": "Password",
             "type": "string",
+            "format" : "password",
             "description": "Salesforce password"
+      "minLength": 1,
+      "default": ""
         },
       "#securitytoken": {
             "title": "Security token",
             "type": "string",
             "description": "Salesforce security token"
+      "minLength": 1,
+      "default": ""
         },
    
    "sandbox": {
@@ -26,7 +33,6 @@
         }
     },
     "required": [
-        "loginname", "#password", "#securitytoken", "object"
+        "loginname", "#password", "#securitytoken"
     ]
 }
-
