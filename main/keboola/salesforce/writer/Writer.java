@@ -165,13 +165,17 @@ public class Writer {
 			}
 			System.out.println("Awaiting results..." + incomplete.size());
 			sleepTime = 10000L;
-			BatchInfo[] statusList = connection.getBatchInfoList(job.getId()).getBatchInfo();
-			for (BatchInfo b : statusList) {
-				if (b.getState() == BatchStateEnum.Completed || b.getState() == BatchStateEnum.Failed) {
-					if (incomplete.remove(b.getId())) {
-						System.out.println("BATCH STATUS:\n" + b);
+			try {
+				BatchInfo[] statusList = connection.getBatchInfoList(job.getId()).getBatchInfo();
+				for (BatchInfo b : statusList) {
+					if (b.getState() == BatchStateEnum.Completed || b.getState() == BatchStateEnum.Failed) {
+						if (incomplete.remove(b.getId())) {
+							System.out.println("BATCH STATUS:\n" + b);
+						}
 					}
 				}
+			} catch ( Exception e) {
+				System.err.println( "awaitCompletion error " + e.getMessage() );
 			}
 		}
 	}
