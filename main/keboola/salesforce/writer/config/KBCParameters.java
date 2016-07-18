@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class KBCParameters {
 
-    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken"};
+    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken", "operation"};
     private final Map<String, Object> parametersMap;
 
     @JsonProperty("loginname")
@@ -38,6 +38,8 @@ public class KBCParameters {
     private String securitytoken;
     @JsonProperty("sandbox")
     private Boolean sandbox;
+    @JsonProperty("operation")
+    private string operation;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -46,19 +48,21 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("operation") String operation
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
         this.password = password;
         this.securitytoken = securitytoken;
         this.sandbox = sandbox;
+        this.operation = operation;
 
         //set param map
         parametersMap.put("loginname", loginname);
         parametersMap.put("password", password);
         parametersMap.put("securitytoken", securitytoken);
         parametersMap.put("sandbox", sandbox);
+        parametersMap.put("operation", operation);
 
     }
 
@@ -143,6 +147,14 @@ public class KBCParameters {
 
     public void setSandbox(boolean sandbox) {
         this.sandbox = sandbox;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 
 }
