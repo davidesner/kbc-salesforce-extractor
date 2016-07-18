@@ -39,9 +39,9 @@ public class KBCParameters {
     @JsonProperty("sandbox")
     private Boolean sandbox;
     @JsonProperty("operation")
-    private string operation;
+    private String operation;
     @JsonProperty("upsertField")
-    private string upsertField;
+    private String upsertField;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -82,7 +82,7 @@ public class KBCParameters {
             if (value == null) {
                 missing.add(REQUIRED_FIELDS[i]);
             }
-            if ( REQUIRED_FIELDS[i] == "operation" && value == "upsert" && parametersMap.get( "upsertField").value == null) {
+            if ( REQUIRED_FIELDS[i] == "operation" && value == "upsert" && parametersMap.get( "upsertField") == null) {
             	missing.add( "upsertField");
             }
         }
