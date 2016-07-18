@@ -2,7 +2,7 @@
  "loginname": "username@nekde.cz", "#password": "12345678",
       "#securitytoken": "vcxgdgde",
    "operation": "update",
-"upsertfield": "",
+"upsertField": "",
    "sandbox": false
 }
 

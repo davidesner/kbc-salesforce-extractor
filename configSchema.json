@@ -44,7 +44,7 @@
             "minItems": 1,
             "uniqueItems": true
         },
-        "upsertfield": {
+        "upsertField": {
             "title": "Upsert Field Name",
             "type": "string",
             "description": "Name of the file where external IDs are stored for upsert operation",

@@ -190,6 +190,7 @@ public class Writer {
 					break;
 				case "upsert": job.setOperation(OperationEnum.upsert);
 					job.setExternalIdFieldName( upsertField);
+					System.out.println( "upsertField: " + upsertField);
 					break;
 				case "delete": job.setOperation(OperationEnum.delete);
 					break;
