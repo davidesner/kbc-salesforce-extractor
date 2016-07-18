@@ -24,4 +24,4 @@ The process *can fail on any records (due to missing required field or too large
 - when inserting you cannot specify ID field
 - when upserting the upsertField parameter is required
 - when updating the ID field in CSV file is required
-- when deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted.
+- when deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted. Also the CSV file must contain only ID field

@@ -25,26 +25,19 @@
       "minLength": 1,
       "default": ""
         },
-        "operation": {
+  "operation": {
             "title": "Operation",
-            "description": "Which operation you need",
-            "type": "array",
-            "format": "radiobutton",
-            "uniqueItems": true,
-            "items": {
-                "type": "string",
+            "description": "Which operation you want to do",
+            "default": "update",
+
+            "type": "string",
                 "enum": [
                     "update",
                     "insert",
                     "upsert",
                     "delete"
                 ]
-            },
-            "default": "update",
-            "minItems": 1,
-            "uniqueItems": true
-        },
-        "upsertField": {
+        },        "upsertField": {
             "title": "Upsert Field Name",
             "type": "string",
             "description": "Name of the file where external IDs are stored for upsert operation",
