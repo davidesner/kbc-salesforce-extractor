@@ -21,7 +21,8 @@ The process *can fail on any records (due to missing required field or too large
 * sandbox - (REQ) true when you want to update data in sandbox
 * upsertField - required when the operation is upsert
 * operation - (REQ) specify the operation you wish to do. Insert/Upsert/Update/Delete are supported. 
-- when inserting you cannot specify ID field
-- when upserting the upsertField parameter is required
-- when updating the ID field in CSV file is required
-- when deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted. Also the CSV file must contain only ID field
+
+-- when inserting you cannot specify ID field
+-- when upserting the upsertField parameter is required
+-- when updating the ID field in CSV file is required
+-- when deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted. Also the CSV file must contain only ID field
