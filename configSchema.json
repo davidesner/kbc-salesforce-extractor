@@ -44,7 +44,13 @@
             "minItems": 1,
             "uniqueItems": true
         },
-   
+        "upsertfield": {
+            "title": "Upsert Field Name",
+            "type": "string",
+            "description": "Name of the file where external IDs are stored for upsert operation",
+            "minLength": 0,
+            "default": ""
+   }
    "sandbox": {
             "title": "Sandbox",
             "type": "boolean",

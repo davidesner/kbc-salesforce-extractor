@@ -19,4 +19,7 @@ The process can fail on any records (due to missing required field or too large 
 * Password - (REQ) your password
 * Security Token - (REQ) your security token, don't forget it is different for sandbox
 * sandbox - (REQ) true when you want to update data in sandbox
-* operation - (REQ) specify the operation you wish to do. Insert/Upsert/Update/Delete are supported. When deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted.
+* upsertField - required when the operation is upsert
+* operation - (REQ) specify the operation you wish to do. Insert/Upsert/Update/Delete are supported. 
+- when deleting, keep in mind that Salesforce's recycle bin can take less records than you are trying to delete, so they will be hard deleted.
+- when upserting the upsertField parameter is required

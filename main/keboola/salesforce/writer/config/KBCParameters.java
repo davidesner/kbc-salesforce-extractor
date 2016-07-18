@@ -40,6 +40,8 @@ public class KBCParameters {
     private Boolean sandbox;
     @JsonProperty("operation")
     private string operation;
+    @JsonProperty("upsertField")
+    private string upsertField;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -48,7 +50,7 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("operation") String operation
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("operation") String operation, @JsonProperty( "upsertField") String upsertField
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
@@ -56,6 +58,7 @@ public class KBCParameters {
         this.securitytoken = securitytoken;
         this.sandbox = sandbox;
         this.operation = operation;
+        this.upsertField = upsertField;
 
         //set param map
         parametersMap.put("loginname", loginname);
@@ -63,6 +66,7 @@ public class KBCParameters {
         parametersMap.put("securitytoken", securitytoken);
         parametersMap.put("sandbox", sandbox);
         parametersMap.put("operation", operation);
+        parametersMap.put("upsertField", upsertField);
 
     }
 
@@ -78,8 +82,11 @@ public class KBCParameters {
             if (value == null) {
                 missing.add(REQUIRED_FIELDS[i]);
             }
+            if ( REQUIRED_FIELDS[i] == "operation" && value == "upsert" && parametersMap.get( "upsertField").value == null) {
+            	missing.add( "upsertField");
+            }
         }
-
+        
         if (missing.isEmpty()) {
             return null;
         }
@@ -157,4 +164,11 @@ public class KBCParameters {
         this.operation = operation;
     }
 
+    public String getUpsertField() {
+        return upsertField;
+    }
+
+    public void setUpsertField(String upsertField) {
+        this.upsertField = upsertField;
+    }
 }
