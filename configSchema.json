@@ -25,6 +25,25 @@
       "minLength": 1,
       "default": ""
         },
+        "operation": {
+            "title": "Operation",
+            "description": "Which operation you need",
+            "type": "array",
+            "format": "radiobutton",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "enum": [
+                    "update",
+                    "insert",
+                    "upsert",
+                    "delete"
+                ]
+            },
+            "default": "update",
+            "minItems": 1,
+            "uniqueItems": true
+        },
    
    "sandbox": {
             "title": "Sandbox",
