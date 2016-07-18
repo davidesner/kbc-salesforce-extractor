@@ -51,10 +51,10 @@ public class Writer {
 			System.exit(1);
 		}
 
-   		System.out.println( "Everything ready, write to Salesforce, loginname: " + config.getParams().getLoginname());
+   		System.out.println( "Everything ready, write to Salesforce, loginname: " + config.getParams().getLoginname() + ", operation: " + config.getParams().getOperation());
 		Writer sfupd = new Writer();
 		sfupd.runUpdate(config.getParams().getLoginname(),
-				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox());
+				config.getParams().getPassword() + config.getParams().getSecuritytoken(), inTablesPath, config.getParams().getSandbox(), config.getParams().getOperation(), config.getParams().getUpsertField());
 				
    		System.out.println( "All done");
 	}
@@ -63,7 +63,7 @@ public class Writer {
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public void runUpdate(String userName, String password, String filesDirectory, boolean sandbox)
+	public void runUpdate(String userName, String password, String filesDirectory, boolean sandbox, String operation, String upsertField)
 			throws AsyncApiException, ConnectionException, IOException {
 		BulkConnection connection = getBulkConnection(userName, password, sandbox);
 		
@@ -78,7 +78,7 @@ public class Writer {
 			 boolean manifest = fileName.endsWith( "manifest");
 			 if( manifest == false) {
 				System.out.println( "found file " + fileName + ", object " + fileNameShort);
-				JobInfo job = createJob( fileNameShort, connection);
+				JobInfo job = createJob( fileNameShort, connection, operation, upsertField);
 				List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, job, filesDirectory + listOfFiles[i].getName());
 				closeJob(connection, job.getId());
 				awaitCompletion(connection, job, batchInfoList);
@@ -181,11 +181,20 @@ public class Writer {
 	 * @return The JobInfo for the new job.
 	 * @throws AsyncApiException
 	 */
-	private JobInfo createJob(String sobjectType, BulkConnection connection) throws AsyncApiException {
+	private JobInfo createJob(String sobjectType, BulkConnection connection, String operation, String upsertField) throws AsyncApiException {
 		try {
 			JobInfo job = new JobInfo();
 			job.setObject(sobjectType);
-			job.setOperation(OperationEnum.update);
+			switch( operation){
+				case "insert": job.setOperation(OperationEnum.insert);
+					break;
+				case "upsert": job.setOperation(OperationEnum.upsert);
+					job.setExternalIdFieldName( upsertField);
+					break;
+				case "delete": job.setOperation(OperationEnum.delete);
+					break;
+				default: job.setOperation(OperationEnum.update);
+			}
 			job.setContentType(ContentType.CSV);
 			job = connection.createJob(job);
 // debug only			System.out.println(job);

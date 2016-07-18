@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"title": "Salesforce writer KBC configuration",
 	"type": "object",
@@ -35,4 +36,60 @@
 	"required": [
 		"loginname", "#password", "#securitytoken", "sandbox"
 	]
+=======
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Salesforce writer KBC configuration",
+    "type": "object",
+    "properties": {
+        "loginname": {
+            "title": "Login Name",
+            "type": "string",
+            "description": "Login name for Salesforce",
+            "minLength": 1,
+      "default": ""
+        },
+        "#password": {
+            "title": "Password",
+            "type": "string",
+            "format" : "password",
+            "description": "Salesforce password"
+      "minLength": 1,
+      "default": ""
+        },
+      "#securitytoken": {
+            "title": "Security token",
+            "type": "string",
+            "description": "Salesforce security token"
+      "minLength": 1,
+      "default": ""
+        },
+  "operation": {
+            "title": "Operation",
+            "description": "Which operation you want to do",
+            "default": "update",
+
+            "type": "string",
+                "enum": [
+                    "update",
+                    "insert",
+                    "upsert",
+                    "delete"
+                ]
+        },        "upsertField": {
+            "title": "Upsert Field Name",
+            "type": "string",
+            "description": "Name of the file where external IDs are stored for upsert operation",
+            "minLength": 0,
+            "default": ""
+   }
+   "sandbox": {
+            "title": "Sandbox",
+            "type": "boolean",
+            "description": "True if you wish to update records in sandbox"
+        }
+    },
+    "required": [
+        "loginname", "#password", "#securitytoken", "sandbox", "operation"
+    ]
+>>>>>>> refs/heads/insert
 }
