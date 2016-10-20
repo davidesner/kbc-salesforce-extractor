@@ -1,29 +1,29 @@
 0: HTNS
 1: Salesforce
-2: writer
-3: Update data in Salesforce
-4: https://bitbucket.org/mhumpolec/keboola/overview
-5: https://bytebucket.org/mhumpolec/keboola/raw/master/img/kbc-sf32x32.png
+2: Extractor
+3: Extract data from Salesforce
+4: https://bitbucket.org/mhumpolec/kbc-salesforce-extractor/overview
+5: https://bytebucket.org/mhumpolec/kbc-salesforce-extractor/raw/master/img/kbc-sf32x32.png
 6: HTNS
 7: Prague
 8: kbc@htns.cz
-9: https://bitbucket.org/mhumpolec/keboola/src/master/LICENSE.md?at=master&fileviewer=file-view-default
-10: https://hub.docker.com/r/mhumpolec/keboola
+9: https://bitbucket.org/mhumpolec/kbc-salesforce-extractor/src/master/LICENSE.md?at=master&fileviewer=file-view-default
+10: https://hub.docker.com/r/mhumpolec/kbc-salesforce-extractor
 11: latest
-12: 4GB
+12: 512MB
 13: 3600
 14: json
 15: false
 16: true
 17: true
-18: in
+18: out
 19: false
-20: https://bitbucket.org/mhumpolec/keboola/src/master/README.md?at=master&fileviewer=file-view-default
-21: tableInput, excludeFromNewList
-22: https://bitbucket.org/mhumpolec/keboola/src/master/testConfig.json?at=master&fileviewer=file-view-default
-23: https://bitbucket.org/mhumpolec/keboola/src/master/configSchema.json?at=master&fileviewer=file-view-default
+20: https://bitbucket.org/mhumpolec/kbc-salesforce-extractor/src/master/README.md?at=master&fileviewer=file-view-default
+21: tableInput, tableOutput, excludeFromNewList
+22: https://bitbucket.org/mhumpolec/kbc-salesforce-extractor/src/master/testConfig.json?at=master&fileviewer=file-view-default
+23: https://bitbucket.org/mhumpolec/kbc-salesforce-extractor/src/master/configSchema.json?at=master&fileviewer=file-view-default
 24: 
-25: dataOut
+25: dataIn
 26: run
 27: false
 28: 
