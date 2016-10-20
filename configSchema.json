@@ -1,6 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
-	"title": "Salesforce writer KBC configuration",
+	"title": "Salesforce Extractor KBC configuration",
 	"type": "object",
 	"properties": {
 		"loginname": {
@@ -25,24 +25,18 @@
 			"minLength": 1,
 			"default": ""
 		},
-		"operation": {
-			"title": "Operation",
-			"description": "Which operation you want to do",
-			"default": "update",
+		"object": {
+			"title": "Object",
+			"description": "Object from which you want to export data",
+			"default": "",
 
 			"type": "string",
-			"enum": [
-				"update",
-				"insert",
-				"upsert",
-				"delete"
-			]
-		},
-		"upsertField": {
-			"title": "Upsert Field Name",
+ "minLength": 1		},
+		"soql": {
+			"title": "SOQL statement",
 			"type": "string",
-			"description": "Name of the file where external IDs are stored for upsert operation",
-			"minLength": 0,
+			"description": "SOQL statement to specify which data you want to download",
+			"minLength": 1,
 			"default": ""
 		},
 		"sandbox": {
@@ -52,6 +46,6 @@
 		}
 	},
 	"required": [
-		"loginname", "#password", "#securitytoken", "sandbox", "operation"
+		"loginname", "#password", "#securitytoken", "sandbox", "object", "soql"
 	]
 }

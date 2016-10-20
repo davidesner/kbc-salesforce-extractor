@@ -1,8 +1,8 @@
 {
  "loginname": "username@nekde.cz", "#password": "12345678",
       "#securitytoken": "vcxgdgde",
-   "operation": "update",
-"upsertField": "",
+   "object": "account",
+"soql": "SELECT Name, ID FROM Account",
    "sandbox": false
 }
 
