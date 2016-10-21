@@ -64,7 +64,7 @@ public class Extractor {
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public void runQuery(String userName, String password, String filesDirectory, boolean sandbox, String object, String soql)
+	public int runQuery(String userName, String password, String filesDirectory, boolean sandbox, String object, String soql)
 			throws AsyncApiException, ConnectionException, IOException {
 		BulkConnection connection = getBulkConnection(userName, password, sandbox);
 		try {
@@ -78,21 +78,21 @@ public class Extractor {
 			job = connection.createJob(job);
 			assert job.getId() != null;
 
-			job = bulkConnection.getJobStatus(job.getId());
+			job = connection.getJobStatus(job.getId());
 
 			Calendar time = Calendar.getInstance();
 			System.out.println("Query started on object "+object+" at time: "+time.get(Calendar.HOUR_OF_DAY)
 			+ ":" + time.get(Calendar.MINUTE)+":"+time.getGreatestMinimum(Calendar.SECOND)+".");   
 
 			BatchInfo info = null;
-			ByteArrayInputStream bout = new ByteArrayInputStream(query.getBytes());
-			info = bulkConnection.createBatchFromStream(job, bout);
+			ByteArrayInputStream bout = new ByteArrayInputStream(soql.getBytes());
+			info = connection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;
 
 			for(int i=0; i<10000; i++) {
 				Thread.sleep(i==0 ? 30 * 1000 : 30 * 1000); //30 sec
-				info = bulkConnection.getBatchInfo(job.getId(),	info.getId());
+				info = connection.getBatchInfo(job.getId(),	info.getId());
 
 				if (info.getState() == BatchStateEnum.Completed) {
 					QueryResultList list = connection.getQueryResultList(job.getId(), info.getId());
