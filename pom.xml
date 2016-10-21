@@ -26,7 +26,7 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-</repositories>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>mhumpolec</groupId>
   <artifactId>KBC_Salesforce_Ext</artifactId>
