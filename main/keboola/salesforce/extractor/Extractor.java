@@ -124,7 +124,8 @@ public class Extractor {
 				return out;
 			}
 		} catch (AsyncApiException aae) {
-			System.err.println( aae.printStackTrace());
+			aae.printStackTrace()
+			System.err.println( "AsnyApiException");
 			System.exit(1);
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
