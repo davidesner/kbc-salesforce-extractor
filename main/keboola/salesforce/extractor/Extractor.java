@@ -95,6 +95,7 @@ public class Extractor {
 				info = connection.getBatchInfo(job.getId(),	info.getId());
 
 				if (info.getState() == BatchStateEnum.Completed) {
+			   		System.out.println( "Completed, getting results.");
 					QueryResultList list = connection.getQueryResultList(job.getId(), info.getId());
 					queryResults = list.getResult();
 					break;
@@ -110,6 +111,7 @@ public class Extractor {
 			if (queryResults != null) {
 				for (String resultId : queryResults) {
 					//grabs result stream and passes it to csv writer
+			   		System.out.println( "Write everything into " + filesDirectory + object + ".csv");
 					FileHandler.writeCSVFromStream(connection.getQueryResultStream(job.getId(),	info.getId(), resultId),object, filesDirectory);
 					//grabs results to ensure integrity
 					connection.getQueryResultList(job.getId(), info.getId()).getResult();
