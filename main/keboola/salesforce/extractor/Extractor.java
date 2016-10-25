@@ -1,4 +1,4 @@
-package keboola.salesforce.extractor;
+package keboola.salesforce.extractor; 
 
 import java.io.*;
 import java.util.*;
