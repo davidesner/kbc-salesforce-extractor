@@ -50,7 +50,7 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("sandbox") Boolean sandbox, @JsonProperty("object") String object, @JsonProperty( "soql") String soql
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") String object, @JsonProperty( "soql") String soql
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
