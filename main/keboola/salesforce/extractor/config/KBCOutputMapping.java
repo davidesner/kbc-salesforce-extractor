@@ -1,6 +1,6 @@
 /*
  */
-package keboola.salesforce.writer.config;
+package keboola.salesforce.extractor.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

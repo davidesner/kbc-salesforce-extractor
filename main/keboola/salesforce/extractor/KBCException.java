@@ -1,6 +1,6 @@
 /*
  */
-package keboola.salesforce.writer;
+package keboola.salesforce.extractor;
 
 /**
  * Abstract class implementing exception with severity indicator
