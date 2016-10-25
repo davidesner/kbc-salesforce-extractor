@@ -8,8 +8,8 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 
-import keboola.salesforce.writer.config.JsonConfigParser;
-import keboola.salesforce.writer.config.KBCConfig;
+import keboola.salesforce.extractor.config.JsonConfigParser;
+import keboola.salesforce.extractor.config.KBCConfig;
 
 /**
  *
