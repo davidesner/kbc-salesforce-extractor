@@ -57,6 +57,8 @@ public class FileHandler
         //makes output folder if it doesnt exist
         BufferedReader read = new BufferedReader(new InputStreamReader(in));
         //writes csv file to output folder
+   		System.out.println( "Prepare file");
+
         FileWriter csvFile = new FileWriter(filesDirectory+"/"+object+".csv");
         String line = "";
         ArrayList<String> textData = new ArrayList<String>();
@@ -76,6 +78,7 @@ public class FileHandler
         //System.gc();
        
         //writes to csv
+   		System.out.println( "Prepare writer");
         CsvWriter writer = new CsvWriter(resultLines.get(0).split("___"),csvFile);
         for(int k = 1; k < resultLines.size();k++){
                 String[] row = resultLines.get(k).split("___");
@@ -83,6 +86,8 @@ public class FileHandler
         }
        
         //closes stream
+   		System.out.println( "Close file");
+
         writer.endDocument();
     }
 }
