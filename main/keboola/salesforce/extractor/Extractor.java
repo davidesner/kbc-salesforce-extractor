@@ -103,7 +103,7 @@ public class Extractor {
 					connection.closeJob(job.getId());
 					break;
 				} else {
-					System.out.println("-------------- waiting ----------" + info);
+					System.out.println("-------------- waiting ----------"/* + info */);
 				}
 			}
 
@@ -115,17 +115,21 @@ public class Extractor {
 					connection.getQueryResultList(job.getId(), info.getId()).getResult();
 				}
 				//notify user of job complete
-				System.out.println("Output complete on object "+object+" at time: "+time.get(Calendar.HOUR_OF_DAY)
-				+ ":" + time.get(Calendar.MINUTE)+":"+time.getGreatestMinimum(Calendar.SECOND)+", processung results.");
+				Calendar time2 = Calendar.getInstance();
+				System.out.println("Output complete on object "+object+" at time: "+time2.get(Calendar.HOUR_OF_DAY)
+				+ ":" + time2.get(Calendar.MINUTE)+":"+time2.getGreatestMinimum(Calendar.SECOND));
 				//return number of records complete for data check and close job
 				int out = info.getNumberRecordsProcessed();
 				connection.closeJob(job.getId());
 				return out;
 			}
 		} catch (AsyncApiException aae) {
-			aae.printStackTrace();
+			System.err.println( aae.printStackTrace());
+			System.exit(1);
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
+			System.err.println("InterruptedExcelption");
+			System.exit(1);
 		}
 		//something went wrong here, return 0 to catch an error back in main
 		return 0;
