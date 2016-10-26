@@ -61,17 +61,20 @@ public class FileHandler
 
         FileWriter csvFile = new FileWriter(filesDirectory+"/"+object+".csv");
         String line = "";
-        ArrayList<String> textData = new ArrayList<String>();
+//        ArrayList<String> textData = new ArrayList<String>();
+        CsvWriter writer = new CsvWriter(resultLines.get(0).split("___"),csvFile);
         //makes array of results
         while((line = read.readLine()) != null){
                 if(line.length()>0){
                         line.trim();
-                        textData.add(line);
+    //                    textData.add(line);
+                        String[] row = line.split("___");
+                        writer.writeRecord(row);
                 }
            
         }
         //cleans results fixing description and new line problems
-        ArrayList<String> resultLines = getResultLines(textData);
+      //  ArrayList<String> resultLines = getResultLines(textData);
        
         //null textData and suggest a Garbage Collection to collect dereferenced strings to try to optimize speed and conserve space
         //textData = null;
@@ -79,12 +82,12 @@ public class FileHandler
        
         //writes to csv
    		// System.out.println( "Prepare writer");
-        CsvWriter writer = new CsvWriter(resultLines.get(0).split("___"),csvFile);
+/*        CsvWriter writer = new CsvWriter(resultLines.get(0).split("___"),csvFile);
         for(int k = 1; k < resultLines.size();k++){
                 String[] row = resultLines.get(k).split("___");
                 writer.writeRecord(row);
         }
-       
+  */     
         //closes stream
    		System.out.println( "Close file");
 
