@@ -62,7 +62,7 @@ public class FileHandler
         FileWriter csvFile = new FileWriter(filesDirectory+"/"+object+".csv");
         String line = "";
 //        ArrayList<String> textData = new ArrayList<String>();
-        CsvWriter writer = new CsvWriter("",csvFile);
+        CsvWriter writer = new CsvWriter(csvFile);
         //makes array of results
         while((line = read.readLine()) != null){
                 if(line.length()>0){

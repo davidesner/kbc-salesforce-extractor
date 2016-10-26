@@ -14,12 +14,13 @@ import java.io.Writer;
 public class CsvWriter {
     private PrintWriter writer;
 
-    public CsvWriter(String[] headers, Writer w) {
-        assert headers != null;
-        assert headers.length != 0;
+    public CsvWriter( Writer w) {
+//        public CsvWriter(String[] headers, Writer w) {
+//        assert headers != null;
+  //      assert headers.length != 0;
 
         writer = new PrintWriter(w, true);
-        writeRecord(headers);
+ //       writeRecord(headers);
     }
 
     public void writeRecord(String[] values) {
