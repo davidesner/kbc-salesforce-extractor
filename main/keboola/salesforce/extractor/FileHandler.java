@@ -59,7 +59,7 @@ public class FileHandler
         //writes csv file to output folder
 //   		System.out.println( "Prepare file");
 
-        FileWriter csvFile = new FileWriter(filesDirectory+"/"+object+".csv");
+        FileWriter csvFile = new FileWriter(filesDirectory+object+".csv");
         String line = "";
 //        ArrayList<String> textData = new ArrayList<String>();
         CsvWriter writer = new CsvWriter(csvFile);

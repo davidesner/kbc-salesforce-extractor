@@ -53,9 +53,9 @@ public class CsvWriter {
             return;
         }
 
-        writer.print("\"");
+//        writer.print("\"");
         value = value.replaceAll("\"", "\"\"");
         writer.print(value);
-        writer.print("\"");
+//        writer.print("\"");
     }
 }

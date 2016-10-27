@@ -90,8 +90,9 @@ public class Extractor {
 
 			String[] queryResults = null;
 
-			for(int i=0; i<10000; i++) {
-				Thread.sleep(i==0 ? 30 * 1000 : 30 * 1000); //30 sec
+			for(int i=0; i<60000; i++) {
+//				Thread.sleep(i==0 ? 30 * 1000 : 30 * 1000); //30 sec
+				Thread.sleep(i<30 ? i * 1000 : 30 * 1000); //30 sec
 				info = connection.getBatchInfo(job.getId(),	info.getId());
 
 				if (info.getState() == BatchStateEnum.Completed) {
@@ -104,7 +105,7 @@ public class Extractor {
 					connection.closeJob(job.getId());
 					break;
 				} else {
-					System.out.println("-------------- waiting ----------"/* + info */);
+					System.out.println("-------------- waiting ----------" + i < 30 ? i : 30 + " seconds" /* + info */);
 				}
 			}
 
