@@ -80,10 +80,6 @@ public class Extractor {
 
 			job = connection.getJobStatus(job.getId());
 
-			Calendar time = Calendar.getInstance();
-			System.out.println("Query started on object "+object+" at time: "+time.get(Calendar.HOUR_OF_DAY)
-			+ ":" + time.get(Calendar.MINUTE)+":"+time.getGreatestMinimum(Calendar.SECOND)+".");   
-
 			BatchInfo info = null;
 			ByteArrayInputStream bout = new ByteArrayInputStream(soql.getBytes());
 			info = connection.createBatchFromStream(job, bout);
@@ -112,15 +108,12 @@ public class Extractor {
 			if (queryResults != null) {
 				for (String resultId : queryResults) {
 					//grabs result stream and passes it to csv writer
-			   		System.out.println( "Write everything into " + filesDirectory + "/" + object + ".csv");
+			   		System.out.println( "Write everything into " + filesDirectory + object + ".csv");
 					FileHandler.writeCSVFromStream(connection.getQueryResultStream(job.getId(),	info.getId(), resultId),object, filesDirectory);
 					//grabs results to ensure integrity
 					connection.getQueryResultList(job.getId(), info.getId()).getResult();
 				}
 				//notify user of job complete
-				Calendar time2 = Calendar.getInstance();
-				System.out.println("Output complete on object "+object+" at time: "+time2.get(Calendar.HOUR_OF_DAY)
-				+ ":" + time2.get(Calendar.MINUTE)+":"+time2.getGreatestMinimum(Calendar.SECOND));
 				//return number of records complete for data check and close job
 				int out = info.getNumberRecordsProcessed();
 				connection.closeJob(job.getId());
