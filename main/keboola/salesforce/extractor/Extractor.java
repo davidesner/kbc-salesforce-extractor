@@ -105,7 +105,7 @@ public class Extractor {
 					connection.closeJob(job.getId());
 					break;
 				} else {
-					System.out.println("-------------- waiting ----------" + i < 30 ? i : 30 + " seconds" /* + info */);
+					System.out.println("-------------- waiting ----------" + ( i < 30 ? i : 30 ) + " seconds" /* + info */);
 				}
 			}
 
