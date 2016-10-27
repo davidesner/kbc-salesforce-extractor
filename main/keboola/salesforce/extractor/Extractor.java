@@ -97,9 +97,9 @@ public class Extractor {
 					queryResults = list.getResult();
 					break;
 				} else if (info.getState() == BatchStateEnum.Failed) {
-					System.out.println("-------------- failed ----------" + info);
+					System.err.println("-------------- failed ----------" + info);
 					connection.closeJob(job.getId());
-					break;
+					System.exit(1);
 				} else {
 					System.out.println("-------------- waiting " + ( i < 30 ? i : 30 ) + " seconds ----------"  /* + info */);
 				}
@@ -121,11 +121,11 @@ public class Extractor {
 			}
 		} catch (AsyncApiException aae) {
 			aae.printStackTrace();
-			System.err.println( "AsnyApiException");
+			System.err.println( "AsyncApiException");
 			System.exit(1);
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
-			System.err.println("InterruptedExcelption");
+			System.err.println("InterruptedException");
 			System.exit(1);
 		}
 		//something went wrong here, return 0 to catch an error back in main
