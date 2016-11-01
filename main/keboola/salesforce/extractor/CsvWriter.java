@@ -15,12 +15,7 @@ public class CsvWriter {
     private PrintWriter writer;
 
     public CsvWriter( Writer w) {
-//        public CsvWriter(String[] headers, Writer w) {
-//        assert headers != null;
-  //      assert headers.length != 0;
-
         writer = new PrintWriter(w, true);
- //       writeRecord(headers);
     }
 
     public void writeRecord(String[] values) {
@@ -53,9 +48,6 @@ public class CsvWriter {
             return;
         }
 
-//        writer.print("\"");
-//        value = value.replaceAll("\"", "\"\"");
         writer.print(value);
-//        writer.print("\"");
     }
 }
