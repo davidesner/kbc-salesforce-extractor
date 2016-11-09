@@ -20,7 +20,7 @@ import keboola.salesforce.extractor.config.KBCConfig;
  */
 public class Extractor {
 //
-	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
+	public void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
 		if (args.length == 0) {
 			System.err.println("No parameters provided.");
 			System.exit(1);
@@ -59,7 +59,7 @@ public class Extractor {
     	if (connection != null) {
     		List <String> objects = config.getParams().getObject();
     		List <String> soqls = config.getParams().getSOQL();
-    		for( int i = 0; i < objects.lenght; i++) {
+    		for( int i = 0; i < objects.length; i++) {
         		sfdown.runQuery( connection, outTablesPath, objects[i], soqls[i]);	
     		}
     	}
@@ -134,7 +134,8 @@ public class Extractor {
 			job = connection.getJobStatus(job.getId());
 
 			BatchInfo info = null;
-			ByteArrayInputStream bout = new ByteArrayInputStream( getSOQL( soql).getBytes(), object, connection);
+			String soql2 = getSOQL( soql);
+			ByteArrayInputStream bout = new ByteArrayInputStream( soql2.getBytes(), object, connection);
 			info = connection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;
