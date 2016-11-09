@@ -56,12 +56,7 @@
 <dependency>
     <groupId>com.force.api</groupId>
     <artifactId>force-partner-api</artifactId>
-    <version>36.0.0</version>
-</dependency>
-<dependency>
-    <groupId>com.salesforce.soap.partner</groupId>
-    <artifactId>force-partner-api</artifactId>
-    <version>36.0.0</version>
+    <version>34.0.0</version>
 </dependency>
    </dependencies>
 </project>
