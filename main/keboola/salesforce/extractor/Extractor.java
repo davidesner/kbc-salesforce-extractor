@@ -79,13 +79,13 @@ public class Extractor {
 
 	    try {
 	        // Make the describe call
-	    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+	    	DescribeSObjectResult describeSObjectResult = new connection.describeSObject( object);
 		        
 	        // Get sObject metadata 
 	        if (describeSObjectResult != null) {
 
 		        // Get the fields
-		        Field[] fields = describeSObjectResult.getFields();
+		        Field[] fields = new describeSObjectResult.getFields();
 
 		        // Iterate through each field and gets its properties 
 		        for (int i = 0; i < fields.length; i++) {
