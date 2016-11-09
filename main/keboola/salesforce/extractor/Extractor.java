@@ -7,6 +7,7 @@ import com.sforce.async.*;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
+import com.sun.org.apache.bcel.internal.classfile.Field;
 
 import keboola.salesforce.extractor.config.JsonConfigParser;
 import keboola.salesforce.extractor.config.KBCConfig;
@@ -51,23 +52,70 @@ public class Extractor {
 			System.exit(1);
 		}
 
-   		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname() + ", SOQL: " + config.getParams().getSOQL());
+   		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-    	sfdown.runQuery(config.getParams().getLoginname(),
-				config.getParams().getPassword() + config.getParams().getSecuritytoken(), outTablesPath, config.getParams().getSandbox(), config.getParams().getObject(), config.getParams().getSOQL());
+		BulkConnection connection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
+    	if (connection != null) {
+    		List <String> objects = config.getParams().getObject();
+    		List <String> soqls = config.getParams().getSOQL();
+    		for( int i = 0; i < objects.lenght; i++) {
+        		sfdown.runQuery( connection, outTablesPath, objects[i], soqls[i]);	
+    		}
+    	}
 				
    		System.out.println( "All done");
 	}
 
+/**
+ * If SOQL is empty, generate SELECT * for the object
+ */
+	public String getSOQL( String soql, String object, BulkConnection connection)
+	{
+		if( soql <> "") { return soql; }
 
+	    try {
+	        // Make the describe call
+	        DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+		        
+	        // Get sObject metadata 
+	        if (describeSObjectResult != null) {
+
+		        // Get the fields
+		        Field[] fields = describeSObjectResult.getFields();
+
+		        // Iterate through each field and gets its properties 
+		        for (int i = 0; i < fields.length; i++) {
+		          Field field = fields[i];
+		        	  		          
+		          // if not formula field publish it
+		          if (!field.getType().equals(FieldType.calculated)) {
+			          if( soql == ""){
+			        	  soql = soql + "," + field.getName();
+			          } else {
+			        	  soql = field.getName();
+			          }
+		          }
+
+			    }
+			  }
+			} catch (ConnectionException ce) {
+			    ce.printStackTrace();
+	    }
+	    if( soql <> "") {
+	    	soql = "SELECT " + soql + " FROM " + object;
+	    }
+	    return soql;
+	}
+	
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public int runQuery(String userName, String password, String filesDirectory, boolean sandbox, String object, String soql)
+	public int runQuery( BulkConnection connection, String filesDirectory, String object, String soql)
 			throws AsyncApiException, ConnectionException, IOException {
-		BulkConnection connection = getBulkConnection(userName, password, sandbox);
+		
 		try {
+	   		System.out.println( "Processing object: " + object);
 			JobInfo job = new JobInfo();
 			job.setObject(object);
 
@@ -81,7 +129,7 @@ public class Extractor {
 			job = connection.getJobStatus(job.getId());
 
 			BatchInfo info = null;
-			ByteArrayInputStream bout = new ByteArrayInputStream(soql.getBytes());
+			ByteArrayInputStream bout = new ByteArrayInputStream( getSOQL( soql).getBytes(), object, connection);
 			info = connection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;

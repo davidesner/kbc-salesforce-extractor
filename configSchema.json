@@ -30,11 +30,11 @@
 			"description": "Object from which you want to export data",
 			"default": "",
 
-			"type": "string",
+			"type": "array",
  "minLength": 1		},
 		"soql": {
 			"title": "SOQL statement",
-			"type": "string",
+			"type": "array",
 			"description": "SOQL statement to specify which data you want to download",
 			"minLength": 1,
 			"default": ""

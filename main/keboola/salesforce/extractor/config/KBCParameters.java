@@ -39,9 +39,9 @@ public class KBCParameters {
     @JsonProperty("sandbox")
     private Boolean sandbox;
     @JsonProperty("object")
-    private String object;
+    private List<String> object;
     @JsonProperty("soql")
-    private String soql;
+    private List<String> soql;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -50,7 +50,7 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") String object, @JsonProperty( "soql") String soql
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") List<String> object, @JsonProperty( "soql") List<String> soql
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
@@ -153,19 +153,19 @@ public class KBCParameters {
         this.sandbox = sandbox;
     }
 
-    public String getObject() {
+    public List<String> getObject() {
         return object;
     }
 
-    public void setObject(String object) {
+    public void setObject(List<String> object) {
         this.object = object;
     }
 
-    public String getSOQL() {
+    public List<String> getSOQL() {
         return soql;
     }
 
-    public void setSOQL(String soql) {
+    public void setSOQL(List<String> soql) {
         this.soql = soql;
     }
 }

@@ -1,0 +1,43 @@
+{
+    "storage": {
+        "input": {
+            "tables": [
+                {
+                    "source": "in.c-main.test",
+                    "destination": "source.csv",
+                    "limit": 50,
+                    "columns": [],
+                    "where_values": [],
+                    "where_operator": "eq"
+                }
+            ],
+            "files": []
+        },
+        "output": {
+            "tables": [
+                {
+                    "source": "destination.csv",
+                    "destination": "out.c-main.test",
+                    "incremental": false,
+                    "primary_key": [],
+                    "delete_where_values": [],
+                    "delete_where_operator": "eq",
+                    "delimiter": ",",
+                    "enclosure": "\"",
+                    "escaped_by": ""
+                }
+            ],
+            "files": []
+        }
+    },
+    "parameters": {
+        "multiplier": 2,
+	"loginname": "cervenynos@crmproneziskovky.cz",
+"#password": "NPPOx9wySKc5",
+"#securitytoken": "kuftucbEqltNDp2fAQEMC5u3",
+"object": "CampaignMember",
+"soql": "SELECT ID,RedNoses__Variable__c from CampaignMember",
+"sandbox": false
+    },
+    "image_parameters": []
+}
