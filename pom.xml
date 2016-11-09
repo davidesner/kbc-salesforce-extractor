@@ -59,7 +59,7 @@
     <version>36.0.0</version>
 </dependency>
 <dependency>
-    <groupId>com.sforce.soap.partner.DescribeSObjectResult</groupId>
+    <groupId>com.sforce.soap.partner</groupId>
     <artifactId>force-partner-api</artifactId>
     <version>36.0.0</version>
 </dependency>
