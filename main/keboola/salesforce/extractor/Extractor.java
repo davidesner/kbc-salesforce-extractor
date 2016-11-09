@@ -120,7 +120,7 @@ public class Extractor {
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
     			String soql = getSOQL( objects.get(i-1), soqls.get(i-1), connection);
-        		sfdown.runQuery( bulkconnection, outTablesPath, objects.get(i-1), soql );	
+        		runQuery( bulkconnection, filesDirectory, objects.get(i-1), soql );	
     		}
     	}
 
