@@ -56,7 +56,7 @@ public class Extractor {
    		
 		Extractor sfdown = new Extractor();
 		BulkConnection bulkconnection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
-		Connection connection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
+		PartnerConnection connection = getConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
     	if (connection != null) {
     		List <String> objects = config.getParams().getObject();
     		List <String> soqls = config.getParams().getSOQL();
@@ -71,7 +71,7 @@ public class Extractor {
 /**
  * If SOQL is empty, generate SELECT * for the object
  */
-	public String getSOQL( String soql, String object, Connection connection)
+	public String getSOQL( String soql, String object, PartnerConnection connection)
 	{
 		if( soql != "") { 
 	   		System.out.println( "SOQL: " + soql);
@@ -117,7 +117,7 @@ public class Extractor {
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public int runQuery( Connection connection, BulkConnection bulkconnection, String filesDirectory, String object, String soql)
+	public int runQuery( PartnerConnection connection, BulkConnection bulkconnection, String filesDirectory, String object, String soql)
 			throws AsyncApiException, ConnectionException, IOException {
 		
 		try {
@@ -229,7 +229,7 @@ public class Extractor {
 	/**
 	 * Create the Connection used to call Describe operations.
 	 */
-	private Connection getConnection(String userName, String password, boolean sandbox)
+	private PartnerConnection getConnection(String userName, String password, boolean sandbox)
 			throws ConnectionException, AsyncApiException {
 		ConnectorConfig partnerConfig = new ConnectorConfig();
 		partnerConfig.setUsername(userName);
@@ -243,24 +243,11 @@ public class Extractor {
 		}
 		// Creating the connection automatically handles login and stores
 		// the session in partnerConfig
-		new PartnerConnection(partnerConfig);
+		PartnerConnection connection = new PartnerConnection(partnerConfig);
+		return connection;
 		// When PartnerConnection is instantiated, a login is implicitly
 		// executed and, if successful,
-		// a valid session is stored in the ConnectorConfig instance.
-		// Use this key to initialize a BulkConnection:
-		ConnectorConfig config = new ConnectorConfig();
-		config.setSessionId(partnerConfig.getSessionId());
-		// The endpoint for the Bulk API service is the same as for the normal
-		// SOAP uri until the /Soap/ part. From here it's '/async/versionNumber'
-		String soapEndpoint = partnerConfig.getServiceEndpoint();
-		String apiVersion = "36.0";
-		config.setRestEndpoint(soapEndpoint);
-		// This should only be false when doing debugging.
-		config.setCompression(true);
-		// Set this to true to see HTTP requests and responses on stdout
-		config.setTraceMessage(false);
-		Connection connection = new Connection(config);
-		return connection;
+		// a valid session is stored in the ConnectorConfig instance.		
 	}
 
 }
