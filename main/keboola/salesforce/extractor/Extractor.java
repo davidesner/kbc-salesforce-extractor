@@ -79,7 +79,7 @@ public class Extractor {
 
 	    try {
 	        // Make the describe call
-	        DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+	    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
 		        
 	        // Get sObject metadata 
 	        if (describeSObjectResult != null) {
@@ -134,8 +134,7 @@ public class Extractor {
 			job = connection.getJobStatus(job.getId());
 
 			BatchInfo info = null;
-			String soql2 = getSOQL( soql);
-			ByteArrayInputStream bout = new ByteArrayInputStream( soql2.getBytes(), object, connection);
+			ByteArrayInputStream bout = new ByteArrayInputStream( getSOQL( soql, object, connection).getBytes());
 			info = connection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;
