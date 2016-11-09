@@ -94,7 +94,7 @@ public class Extractor {
 		        	com.sforce.soap.partner.Field field = fields[i];
 		        	  		          
 		          // if not formula field publish it
-		          if (!field.getType().equals(FieldType.calculated)) {
+		          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
 			          if( soql == ""){
 			        	  soql = soql + "," + field.getName();
 			          } else {
