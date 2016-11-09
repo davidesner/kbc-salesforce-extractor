@@ -21,7 +21,7 @@ import keboola.salesforce.extractor.config.KBCConfig;
  */
 public class Extractor {
 //
-	public void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
+	public static void main(String[] args) throws AsyncApiException, ConnectionException, IOException   {
 		if (args.length == 0) {
 			System.err.println("No parameters provided.");
 			System.exit(1);
