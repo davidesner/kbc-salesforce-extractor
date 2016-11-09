@@ -55,12 +55,13 @@ public class Extractor {
    		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-		BulkConnection connection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
+		BulkConnection bulkconnection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
+		Connection connection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
     	if (connection != null) {
     		List <String> objects = config.getParams().getObject();
     		List <String> soqls = config.getParams().getSOQL();
     		for( int i = 0; i < objects.size(); i++) {
-        		sfdown.runQuery( connection, outTablesPath, objects.get(i-1), soqls.get(i-1));	
+        		sfdown.runQuery( connection, bulkconnection, outTablesPath, objects.get(i-1), soqls.get(i-1));	
     		}
     	}
 				
@@ -70,7 +71,7 @@ public class Extractor {
 /**
  * If SOQL is empty, generate SELECT * for the object
  */
-	public String getSOQL( String soql, String object, BulkConnection connection)
+	public String getSOQL( String soql, String object, Connection connection)
 	{
 		if( soql != "") { 
 	   		System.out.println( "SOQL: " + soql);
@@ -116,7 +117,7 @@ public class Extractor {
 /**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public int runQuery( BulkConnection connection, String filesDirectory, String object, String soql)
+	public int runQuery( Connection connection, BulkConnection bulkconnection, String filesDirectory, String object, String soql)
 			throws AsyncApiException, ConnectionException, IOException {
 		
 		try {
@@ -128,30 +129,30 @@ public class Extractor {
 			job.setConcurrencyMode(ConcurrencyMode.Parallel);
 			job.setContentType(ContentType.CSV);
 
-			job = connection.createJob(job);
+			job = bulkconnection.createJob(job);
 			assert job.getId() != null;
 
-			job = connection.getJobStatus(job.getId());
+			job = bulkconnection.getJobStatus(job.getId());
 
 			BatchInfo info = null;
 			ByteArrayInputStream bout = new ByteArrayInputStream( getSOQL( soql, object, connection).getBytes());
-			info = connection.createBatchFromStream(job, bout);
+			info = bulkconnection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;
 
 			for(int i=1; i<60000; i++) {
 //				Thread.sleep(i==0 ? 30 * 1000 : 30 * 1000); //30 sec
 				Thread.sleep(i<30 ? i * 1000 : 30 * 1000); //30 sec
-				info = connection.getBatchInfo(job.getId(),	info.getId());
+				info = bulkconnection.getBatchInfo(job.getId(),	info.getId());
 
 				if (info.getState() == BatchStateEnum.Completed) {
 			   		System.out.println( "Completed, getting results.");
-					QueryResultList list = connection.getQueryResultList(job.getId(), info.getId());
+					QueryResultList list = bulkconnection.getQueryResultList(job.getId(), info.getId());
 					queryResults = list.getResult();
 					break;
 				} else if (info.getState() == BatchStateEnum.Failed) {
 					System.err.println("-------------- failed ----------" + info);
-					connection.closeJob(job.getId());
+					bulkconnection.closeJob(job.getId());
 					System.exit(1);
 				} else {
 					System.out.println("-------------- waiting " + ( i < 30 ? i : 30 ) + " seconds ----------"  /* + info */);
@@ -162,14 +163,14 @@ public class Extractor {
 				for (String resultId : queryResults) {
 					//grabs result stream and passes it to csv writer
 			   		System.out.println( "Write everything into " + filesDirectory + object + ".csv");
-					FileHandler.writeCSVFromStream(connection.getQueryResultStream(job.getId(),	info.getId(), resultId),object, filesDirectory);
+					FileHandler.writeCSVFromStream(bulkconnection.getQueryResultStream(job.getId(),	info.getId(), resultId),object, filesDirectory);
 					//grabs results to ensure integrity
-					connection.getQueryResultList(job.getId(), info.getId()).getResult();
+					bulkconnection.getQueryResultList(job.getId(), info.getId()).getResult();
 				}
 				//notify user of job complete
 				//return number of records complete for data check and close job
 				int out = info.getNumberRecordsProcessed();
-				connection.closeJob(job.getId());
+				bulkconnection.closeJob(job.getId());
 				return out;
 			}
 		} catch (AsyncApiException aae) {
@@ -225,5 +226,41 @@ public class Extractor {
 		return connection;
 	}
 
+	/**
+	 * Create the Connection used to call Describe operations.
+	 */
+	private Connection getConnection(String userName, String password, boolean sandbox)
+			throws ConnectionException, AsyncApiException {
+		ConnectorConfig partnerConfig = new ConnectorConfig();
+		partnerConfig.setUsername(userName);
+		partnerConfig.setPassword(password);
+		if ( sandbox == true)  {
+			System.out.println("Connecting to Salesforce Sandbox");
+			partnerConfig.setAuthEndpoint("https://test.salesforce.com/services/Soap/u/36.0");
+		} else {
+			System.out.println("Connecting to Salesforce Production");
+			partnerConfig.setAuthEndpoint("https://login.salesforce.com/services/Soap/u/36.0");			
+		}
+		// Creating the connection automatically handles login and stores
+		// the session in partnerConfig
+		new PartnerConnection(partnerConfig);
+		// When PartnerConnection is instantiated, a login is implicitly
+		// executed and, if successful,
+		// a valid session is stored in the ConnectorConfig instance.
+		// Use this key to initialize a BulkConnection:
+		ConnectorConfig config = new ConnectorConfig();
+		config.setSessionId(partnerConfig.getSessionId());
+		// The endpoint for the Bulk API service is the same as for the normal
+		// SOAP uri until the /Soap/ part. From here it's '/async/versionNumber'
+		String soapEndpoint = partnerConfig.getServiceEndpoint();
+		String apiVersion = "36.0";
+		config.setRestEndpoint(soapEndpoint);
+		// This should only be false when doing debugging.
+		config.setCompression(true);
+		// Set this to true to see HTTP requests and responses on stdout
+		config.setTraceMessage(false);
+		Connection connection = new Connection(config);
+		return connection;
+	}
 
 }
