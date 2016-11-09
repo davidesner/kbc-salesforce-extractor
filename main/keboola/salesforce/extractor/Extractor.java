@@ -92,16 +92,17 @@ public class Extractor {
 		        // Iterate through each field and gets its properties 
 		        for (int i = 0; i < fields.length; i++) {
 		        	com.sforce.soap.partner.Field field = fields[i];
-		        	  		          
+		       		System.out.println( field.getName() + " - " + field.getType());
+ 
 		          // if not formula field publish it
-		          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
+/*		          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
 			          if( soql == ""){
 			        	  soql = soql + "," + field.getName();
 			          } else {
 			        	  soql = field.getName();
 			          }
 		          }
-
+*/
 			    }
 			  }
 			} catch (ConnectionException ce) {
