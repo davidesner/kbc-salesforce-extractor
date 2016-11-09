@@ -8,6 +8,7 @@ import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
 import com.sun.org.apache.bcel.internal.classfile.Field;
+import com.sforce.soap.partner.DescribeSObjectResult; 
 
 import keboola.salesforce.extractor.config.JsonConfigParser;
 import keboola.salesforce.extractor.config.KBCConfig;
