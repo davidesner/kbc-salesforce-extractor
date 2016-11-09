@@ -72,7 +72,7 @@ public class Extractor {
  */
 	public String getSOQL( String soql, String object, BulkConnection connection)
 	{
-		if( soql <> "") { 
+		if( soql != "") { 
 	   		System.out.println( "SOQL: " + soql);
 	   		return soql; 
 	   	}
@@ -105,7 +105,7 @@ public class Extractor {
 			} catch (ConnectionException ce) {
 			    ce.printStackTrace();
 	    }
-	    if( soql <> "") {
+	    if( soql != "") {
 	    	soql = "SELECT " + soql + " FROM " + object;
 	    }
    		System.out.println( "SOQL: " + soql);
