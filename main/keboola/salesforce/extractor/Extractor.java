@@ -87,11 +87,11 @@ public class Extractor {
 	        if (describeSObjectResult != null) {
 
 		        // Get the fields
-		        Field[] fields = describeSObjectResult.getFields();
+	        	com.sforce.soap.partner.Field[] fields = describeSObjectResult.getFields();
 
 		        // Iterate through each field and gets its properties 
 		        for (int i = 0; i < fields.length; i++) {
-		          Field field = fields[i];
+		        	com.sforce.soap.partner.Field field = fields[i];
 		        	  		          
 		          // if not formula field publish it
 		          if (!field.getType().equals(FieldType.calculated)) {
