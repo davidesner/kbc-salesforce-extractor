@@ -59,7 +59,7 @@ public class Extractor {
     	if (connection != null) {
     		List <String> objects = config.getParams().getObject();
     		List <String> soqls = config.getParams().getSOQL();
-    		for( int i = 0; i < objects.length; i++) {
+    		for( int i = 0; i < objects.size(); i++) {
         		sfdown.runQuery( connection, outTablesPath, objects[i], soqls[i]);	
     		}
     	}

@@ -35,8 +35,8 @@
 	"loginname": "cervenynos@crmproneziskovky.cz",
 "#password": "NPPOx9wySKc5",
 "#securitytoken": "kuftucbEqltNDp2fAQEMC5u3",
-"object": "CampaignMember",
-"soql": "SELECT ID,RedNoses__Variable__c from CampaignMember",
+"object": ["Account","CampaignMember"],
+"soql": ["","SELECT ID,RedNoses__Variable__c from CampaignMember"],
 "sandbox": false
     },
     "image_parameters": []
