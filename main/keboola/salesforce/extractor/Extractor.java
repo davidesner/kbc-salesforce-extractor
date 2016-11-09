@@ -56,15 +56,9 @@ public class Extractor {
    		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-		BulkConnection bulkconnection = getBulkConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
-		PartnerConnection connection = getConnection(config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox());
-    	if (connection != null) {
-    		List <String> objects = config.getParams().getObject();
-    		List <String> soqls = config.getParams().getSOQL();
-    		for( int i = 0; i < objects.size(); i++) {
-        		sfdown.runQuery( connection, bulkconnection, outTablesPath, objects.get(i-1), soqls.get(i-1));	
-    		}
-    	}
+		
+		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
+				outTablesPath, config.getParams().getObject(), config.getParams().getSOQL())
 				
    		System.out.println( "All done");
 	}
@@ -116,10 +110,26 @@ public class Extractor {
 	    return soql;
 	}
 	
-/**
+	/**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
-	public int runQuery( PartnerConnection connection, BulkConnection bulkconnection, String filesDirectory, String object, String soql)
+	public int runQueries( String loginname, String password, Boolean sandbox, String filesDirectory, List <String> objects, List <String> soqls)
+			throws AsyncApiException, ConnectionException, IOException {
+		BulkConnection bulkconnection = getBulkConnection( loginname, password, sandbox);
+		PartnerConnection connection = getConnection( loginname, password, sandbox);
+    	if (connection != null) {
+    		for( int i = 0; i < objects.size(); i++) {
+    			String soql = getSOQL( connection, objects.get(i-1), soqls.get(i-1));
+        		sfdown.runQuery( bulkconnection, outTablesPath, objects.get(i-1), soql );	
+    		}
+    	}
+
+	}
+
+		/**
+	 * Creates a Bulk API job and download batches for a CSV file.
+	 */
+	public int runQuery( BulkConnection bulkconnection, String filesDirectory, String object, String soql)
 			throws AsyncApiException, ConnectionException, IOException {
 		
 		try {
@@ -137,7 +147,7 @@ public class Extractor {
 			job = bulkconnection.getJobStatus(job.getId());
 
 			BatchInfo info = null;
-			ByteArrayInputStream bout = new ByteArrayInputStream( getSOQL( soql, object, connection).getBytes());
+			ByteArrayInputStream bout = new ByteArrayInputStream( soql.getBytes());
 			info = bulkconnection.createBatchFromStream(job, bout);
 
 			String[] queryResults = null;
