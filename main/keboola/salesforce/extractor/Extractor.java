@@ -80,7 +80,7 @@ public class Extractor {
 
 	    try {
 	        // Make the describe call
-	    	Schema.DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+	    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
 		        
 	        // Get sObject metadata 
 	        if (describeSObjectResult != null) {
