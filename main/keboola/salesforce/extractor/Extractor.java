@@ -123,7 +123,7 @@ public class Extractor {
         		runQuery( bulkconnection, filesDirectory, objects.get(i-1), soql );	
     		}
     	}
-
+    	return 0;
 	}
 
 		/**
