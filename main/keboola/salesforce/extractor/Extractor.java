@@ -117,7 +117,9 @@ public class Extractor {
 			throws AsyncApiException, ConnectionException, IOException {
 		BulkConnection bulkconnection = getBulkConnection( loginname, password, sandbox);
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
+		System.out.println( "Let's go");
     	if (connection != null) {
+    		System.out.println( "in");
     		for( int i = 0; i < objects.size(); i++) {
     			String soql = getSOQL( objects.get(i-1), soqls.get(i-1), connection);
         		runQuery( bulkconnection, filesDirectory, objects.get(i-1), soql );	
