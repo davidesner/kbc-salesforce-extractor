@@ -119,7 +119,7 @@ public class Extractor {
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
-    			String soql = getSOQL( connection, objects.get(i-1), soqls.get(i-1));
+    			String soql = getSOQL( objects.get(i-1), soqls.get(i-1), connection);
         		sfdown.runQuery( bulkconnection, outTablesPath, objects.get(i-1), soql );	
     		}
     	}
