@@ -85,12 +85,14 @@ public class Extractor {
 			        	com.sforce.soap.partner.Field field = fields[i];
 			       		System.out.println( field.getName() + " - " + field.getType());
 	 
+			       		if( field.getType() <> "address"){
 			          // if not formula field publish it
 				          if( soql == ""){
 				        	  soql = field.getName();
 				          } else {
 				        	  soql = soql + "," + field.getName();
 				          }
+				         }
 	
 				    }
 				  }
