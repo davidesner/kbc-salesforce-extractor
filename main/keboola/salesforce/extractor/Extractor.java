@@ -72,14 +72,18 @@ public class Extractor {
 
 		    try {
 		        // Make the describe call
+		    	System.out.println( "describe");
 		    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+		    	System.out.println( "after describe");
 			        
 		        // Get sObject metadata 
 		        if (describeSObjectResult != null) {
-	
+			    	System.out.println( "get field");
+
 			        // Get the fields
 		        	com.sforce.soap.partner.Field[] fields = describeSObjectResult.getFields();
-	
+			    	System.out.println( "after field");
+
 			        // Iterate through each field and gets its properties 
 			        for (int i = 0; i < fields.length; i++) {
 			        	com.sforce.soap.partner.Field field = fields[i];
