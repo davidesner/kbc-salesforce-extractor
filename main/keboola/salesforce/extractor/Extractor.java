@@ -261,8 +261,8 @@ public class Extractor {
 		// Creating the connection automatically handles login and stores
 		// the session in partnerConfig
 		PartnerConnection connection = new PartnerConnection(partnerConfig);
-		return connection;
 		System.out.println("partnerlogin ok");
+		return connection;
 		// When PartnerConnection is instantiated, a login is implicitly
 		// executed and, if successful,
 		// a valid session is stored in the ConnectorConfig instance.		
