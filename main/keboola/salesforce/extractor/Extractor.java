@@ -118,7 +118,7 @@ public class Extractor {
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
-        		System.out.println( "object: " + objects.get(i));
+        		//System.out.println( "object: " + objects.get(i));
     			String soql = getSOQL( soqls.get(i), objects.get(i), connection);
         		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
     		}
@@ -222,14 +222,19 @@ public class Extractor {
 		// executed and, if successful,
 		// a valid session is stored in the ConnectorConfig instance.
 		// Use this key to initialize a BulkConnection:
+		System.out.println("config");
+
 		ConnectorConfig config = new ConnectorConfig();
 		config.setSessionId(partnerConfig.getSessionId());
+		System.out.println("getsession ok");
 		// The endpoint for the Bulk API service is the same as for the normal
 		// SOAP uri until the /Soap/ part. From here it's '/async/versionNumber'
 		String soapEndpoint = partnerConfig.getServiceEndpoint();
 		String apiVersion = "36.0";
 		String restEndpoint = soapEndpoint.substring(0, soapEndpoint.indexOf("Soap/")) + "async/" + apiVersion;
 		config.setRestEndpoint(restEndpoint);
+		System.out.println("soap api ok");
+
 		// This should only be false when doing debugging.
 		config.setCompression(true);
 		// Set this to true to see HTTP requests and responses on stdout
@@ -257,6 +262,7 @@ public class Extractor {
 		// the session in partnerConfig
 		PartnerConnection connection = new PartnerConnection(partnerConfig);
 		return connection;
+		System.out.println("partnerlogin ok");
 		// When PartnerConnection is instantiated, a login is implicitly
 		// executed and, if successful,
 		// a valid session is stored in the ConnectorConfig instance.		

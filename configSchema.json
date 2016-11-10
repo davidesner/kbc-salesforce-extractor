@@ -1,4 +1,4 @@
-{
+
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"title": "Salesforce Extractor KBC configuration",
 	"type": "object",
@@ -23,29 +23,42 @@
 			"type": "string",
 			"description": "Salesforce security token",
 			"minLength": 1,
-			"default": ""
-		},
-		"object": {
-			"title": "Object",
-			"description": "Object from which you want to export data",
 			"default": "",
-
-			"type": "array",
- "minLength": 1		},
-		"soql": {
-			"title": "SOQL statement",
-			"type": "array",
-			"description": "SOQL statement to specify which data you want to download",
-			"minLength": 1,
-			"default": ""
+			"format": "password"
 		},
 		"sandbox": {
 			"title": "Sandbox",
 			"type": "boolean",
-			"description": "True if you wish to update records in sandbox"
+			"description": "True if you wish to download records from sandbox"
+		},
+		
+		"object": {
+			"title": "Objects",
+			"description": "Objects from which you want to export data, eg. Account",
+			"default": "",
+			"type": "array",
+			"items": {
+				"title": "Query",
+				"type": "string"
+			}
+		},
+		"soql": {
+			"title": "SOQL Statements",
+			"type": "array",
+			"description": "SOQL statements to specify which data you want to download, eg. SELECT Id, Name FROM Account",
+			"default": "",
+			"items": {
+				"title": "SOQL Statement",
+				"type": "string"
+			}
 		}
 	},
 	"required": [
-		"loginname", "#password", "#securitytoken", "sandbox", "object", "soql"
+		"loginname",
+		"#password",
+		"#securitytoken",
+		"sandbox",
+		"object",
+		"soql"
 	]
 }
