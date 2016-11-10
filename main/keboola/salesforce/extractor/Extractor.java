@@ -85,9 +85,9 @@ public class Extractor {
 			        	com.sforce.soap.partner.Field field = fields[i];
 	 
 				          if( soql == ""){
-				        	  soql = soql + "," + field.getName();
-				          } else {
 				        	  soql = field.getName();
+				          } else {
+				        	  soql = soql + "," + field.getName();
 				          }
 	
 				    }
