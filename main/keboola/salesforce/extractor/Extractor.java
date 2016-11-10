@@ -83,12 +83,16 @@ public class Extractor {
 			        // Iterate through each field and gets its properties 
 			        for (int i = 0; i < fields.length; i++) {
 			        	com.sforce.soap.partner.Field field = fields[i];
+			       		System.out.println( field.getName() + " - " + field.getType());
 	 
+			          // if not formula field publish it
+			          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
 				          if( soql == ""){
 				        	  soql = field.getName();
 				          } else {
 				        	  soql = soql + "," + field.getName();
 				          }
+			          }
 	
 				    }
 				  }
@@ -113,8 +117,9 @@ public class Extractor {
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
+        		System.out.println( "object: " + objects.get(i));
     			String soql = getSOQL( soqls.get(i), objects.get(i), connection);
-    			runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
+//        		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
     		}
     	}
     	return 0;
