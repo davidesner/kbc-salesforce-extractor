@@ -86,13 +86,11 @@ public class Extractor {
 			       		System.out.println( field.getName() + " - " + field.getType());
 	 
 			          // if not formula field publish it
-			          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
 				          if( soql == ""){
 				        	  soql = field.getName();
 				          } else {
 				        	  soql = soql + "," + field.getName();
 				          }
-			          }
 	
 				    }
 				  }
