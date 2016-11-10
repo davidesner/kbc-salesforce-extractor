@@ -83,7 +83,7 @@ public class Extractor {
 			        // Iterate through each field and gets its properties 
 			        for (int i = 0; i < fields.length; i++) {
 			        	com.sforce.soap.partner.Field field = fields[i];
-			       		System.out.println( field.getName() + " - " + field.getType());
+//			       		System.out.println( field.getName() + " - " + field.getType());
 	 
 			       		if( field.getType() != com.sforce.soap.partner.FieldType.address){
 			       			
