@@ -118,7 +118,7 @@ public class Extractor {
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
         		System.out.println( "object: " + objects.get(i));
-    			String soql = getSOQL( objects.get(i), soqls.get(i), connection);
+    			String soql = getSOQL( soqls.get(i), objects.get(i), connection);
 //        		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
     		}
     	}
