@@ -209,10 +209,10 @@ public class Extractor {
 		partnerConfig.setUsername(userName);
 		partnerConfig.setPassword(password);
 		if ( sandbox == true)  {
-			System.out.println("Connecting to Salesforce Sandbox");
+			System.out.println("Connecting to Salesforce Sandbox (Bulk API)");
 			partnerConfig.setAuthEndpoint("https://test.salesforce.com/services/Soap/u/36.0");
 		} else {
-			System.out.println("Connecting to Salesforce Production");
+			System.out.println("Connecting to Salesforce Production (Bulk API)");
 			partnerConfig.setAuthEndpoint("https://login.salesforce.com/services/Soap/u/36.0");			
 		}
 		// Creating the connection automatically handles login and stores
@@ -222,19 +222,16 @@ public class Extractor {
 		// executed and, if successful,
 		// a valid session is stored in the ConnectorConfig instance.
 		// Use this key to initialize a BulkConnection:
-		System.out.println("config");
-
 		ConnectorConfig config = new ConnectorConfig();
 		config.setSessionId(partnerConfig.getSessionId());
-		System.out.println("getsession ok");
+		
 		// The endpoint for the Bulk API service is the same as for the normal
 		// SOAP uri until the /Soap/ part. From here it's '/async/versionNumber'
 		String soapEndpoint = partnerConfig.getServiceEndpoint();
 		String apiVersion = "36.0";
 		String restEndpoint = soapEndpoint.substring(0, soapEndpoint.indexOf("Soap/")) + "async/" + apiVersion;
 		config.setRestEndpoint(restEndpoint);
-		System.out.println("soap api ok");
-
+		
 		// This should only be false when doing debugging.
 		config.setCompression(true);
 		// Set this to true to see HTTP requests and responses on stdout
@@ -261,7 +258,6 @@ public class Extractor {
 		// Creating the connection automatically handles login and stores
 		// the session in partnerConfig
 		PartnerConnection connection = new PartnerConnection(partnerConfig);
-		System.out.println("partnerlogin ok");
 		return connection;
 		// When PartnerConnection is instantiated, a login is implicitly
 		// executed and, if successful,
