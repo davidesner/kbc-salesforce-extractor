@@ -68,43 +68,41 @@ public class Extractor {
  */
 	public String getSOQL( String soql, String object, PartnerConnection connection)
 	{
-		if( soql != "") { 
-	   		System.out.println( "SOQL: " + soql);
-	   		return soql; 
-	   	}
+		if( soql == "") { 
 
-	    try {
-	        // Make the describe call
-	    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
-		        
-	        // Get sObject metadata 
-	        if (describeSObjectResult != null) {
-
-		        // Get the fields
-	        	com.sforce.soap.partner.Field[] fields = describeSObjectResult.getFields();
-
-		        // Iterate through each field and gets its properties 
-		        for (int i = 0; i < fields.length; i++) {
-		        	com.sforce.soap.partner.Field field = fields[i];
-		       		System.out.println( field.getName() + " - " + field.getType());
- 
-		          // if not formula field publish it
-/*		          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
-			          if( soql == ""){
-			        	  soql = soql + "," + field.getName();
-			          } else {
-			        	  soql = field.getName();
+		    try {
+		        // Make the describe call
+		    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
+			        
+		        // Get sObject metadata 
+		        if (describeSObjectResult != null) {
+	
+			        // Get the fields
+		        	com.sforce.soap.partner.Field[] fields = describeSObjectResult.getFields();
+	
+			        // Iterate through each field and gets its properties 
+			        for (int i = 0; i < fields.length; i++) {
+			        	com.sforce.soap.partner.Field field = fields[i];
+			       		System.out.println( field.getName() + " - " + field.getType());
+	 
+			          // if not formula field publish it
+	/*		          if (!field.getType().equals(com.sforce.soap.partner.FieldType.calculated)) {
+				          if( soql == ""){
+				        	  soql = soql + "," + field.getName();
+				          } else {
+				        	  soql = field.getName();
+				          }
 			          }
-		          }
-*/
-			    }
-			  }
-			} catch (ConnectionException ce) {
-			    ce.printStackTrace();
-	    }
-	    if( soql != "") {
-	    	soql = "SELECT " + soql + " FROM " + object;
-	    }
+	*/
+				    }
+				  }
+				} catch (ConnectionException ce) {
+				    ce.printStackTrace();
+		    }
+		    if( soql != "") {
+		    	soql = "SELECT " + soql + " FROM " + object;
+		    }
+		}
    		System.out.println( "SOQL: " + soql);
 
 	    return soql;
@@ -117,12 +115,11 @@ public class Extractor {
 			throws AsyncApiException, ConnectionException, IOException {
 		BulkConnection bulkconnection = getBulkConnection( loginname, password, sandbox);
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
-		System.out.println( "Let's go");
     	if (connection != null) {
-    		System.out.println( "in");
     		for( int i = 0; i < objects.size(); i++) {
-    			String soql = getSOQL( objects.get(i-1), soqls.get(i-1), connection);
-        		runQuery( bulkconnection, filesDirectory, objects.get(i-1), soql );	
+        		System.out.println( "object: " + objects.get(i));
+    			String soql = getSOQL( objects.get(i), soqls.get(i), connection);
+//        		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
     		}
     	}
     	return 0;
