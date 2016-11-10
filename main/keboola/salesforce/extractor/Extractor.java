@@ -85,7 +85,7 @@ public class Extractor {
 			        	com.sforce.soap.partner.Field field = fields[i];
 			       		System.out.println( field.getName() + " - " + field.getType());
 	 
-			       		if( field.getType() <> "address"){
+			       		if( field.getType() != "address"){
 			          // if not formula field publish it
 				          if( soql == ""){
 				        	  soql = field.getName();
@@ -119,7 +119,7 @@ public class Extractor {
     		for( int i = 0; i < objects.size(); i++) {
         		System.out.println( "object: " + objects.get(i));
     			String soql = getSOQL( soqls.get(i), objects.get(i), connection);
-//        		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
+        		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
     		}
     	}
     	return 0;
