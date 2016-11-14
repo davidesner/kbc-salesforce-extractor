@@ -113,13 +113,15 @@ public class Extractor {
 		public String getObject( String soql, PartnerConnection connection)
 		{
 			String objectN = "";
-			int from = soql.indexOf("FROM ");
-			int till = soql.indexOf(" ", from + 1);
-			if ( till == -1)
+			soql = soql.toLowerCase();
+			int fromN = soql.indexOf('from ');
+			int tillN = soql.indexOf(' ', fromN + 1);
+			System.out.println( "From: " + fromN + ", till: " + tillN);
+			if ( tillN == -1)
 			{
-		   		objectN = soql.substring( from);				
+		   		objectN = soql.substring( fromN);				
 			} else {
-		   		objectN = soql.substring( from, till);				
+		   		objectN = soql.substring( fromN, tillN);				
 			}
 			
 			System.out.println( "Object: " + objectN);
