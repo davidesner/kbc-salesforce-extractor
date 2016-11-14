@@ -114,7 +114,7 @@ public class Extractor {
 		{
 			String objectN = "";
 			soql = soql.toLowerCase();
-			int fromN = soql.indexOf(" from ");
+			int fromN = soql.indexOf(" from ") + 6;
 			int tillN = soql.indexOf(" ", fromN + 1);
 			System.out.println( "From: " + fromN + ", till: " + tillN);
 			if ( tillN == -1)
