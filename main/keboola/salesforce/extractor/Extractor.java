@@ -116,7 +116,6 @@ public class Extractor {
 			soql = soql.toLowerCase();
 			int fromN = soql.indexOf(" from ") + 6;
 			int tillN = soql.indexOf(" ", fromN + 1);
-			System.out.println( "From: " + fromN + ", till: " + tillN);
 			if ( tillN == -1)
 			{
 		   		objectN = soql.substring( fromN);				
@@ -124,7 +123,7 @@ public class Extractor {
 		   		objectN = soql.substring( fromN, tillN);				
 			}
 			
-			System.out.println( "Object: " + objectN);
+//			System.out.println( "Object: " + objectN);
 
 		    return objectN;
 		}
