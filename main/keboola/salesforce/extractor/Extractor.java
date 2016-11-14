@@ -64,12 +64,10 @@ public class Extractor {
 	}
 
 /**
- * If SOQL is empty, generate SELECT * for the object
+ * generate SELECT * for the object
  */
-	public String getSOQL( String soql, String object, PartnerConnection connection)
+	public String getSOQL( String object, PartnerConnection connection)
 	{
-		if( soql == "") { 
-
 		    try {
 		        // Make the describe call
 		    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
@@ -103,13 +101,31 @@ public class Extractor {
 		    if( soql != "") {
 		    	soql = "SELECT " + soql + " FROM " + object;
 		    }
-		}
    		System.out.println( "SOQL: " + soql);
 
 	    return soql;
 	}
 	
 	/**
+	 * get object name from SOQL
+	 */
+		public String getObject( String soql, PartnerConnection connection)
+		{
+			int from = soql.indexOf("FROM ");
+			int till = soql.indexOf(" ", from + 1);
+			if ( till == -1)
+			{
+		   		String object = soql.substring( from);				
+			} else {
+		   		String object = soql.substring( from, till);				
+			}
+			
+			System.out.println( "Object: " + object);
+
+		    return object;
+		}
+
+		/**
 	 * Creates a Bulk API job and uploads batches for a CSV file.
 	 */
 	public int runQueries( String loginname, String password, Boolean sandbox, String filesDirectory, List <String> objects, List <String> soqls)
@@ -118,9 +134,14 @@ public class Extractor {
 		PartnerConnection connection = getConnection( loginname, password, sandbox);
     	if (connection != null) {
     		for( int i = 0; i < objects.size(); i++) {
-        		//System.out.println( "object: " + objects.get(i));
-    			String soql = getSOQL( soqls.get(i), objects.get(i), connection);
+        		System.out.println( "Processing object: " + objects.get(i));
+    			String soql = getSOQL( objects.get(i), connection);
         		runQuery( bulkconnection, filesDirectory, objects.get(i), soql );	
+    		}
+    		for( int i = 0; i < soqls.size(); i++) {
+        		System.out.println( "Processing SOQL: " + soqls.get(i));
+    			String object = getObject( soqls.get(i), connection);
+        		runQuery( bulkconnection, filesDirectory, object, soqls.get(i) );	
     		}
     	}
     	return 0;
