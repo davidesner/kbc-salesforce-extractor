@@ -68,7 +68,8 @@ public class Extractor {
  */
 	public String getSOQL( String object, PartnerConnection connection)
 	{
-		    try {
+		String soql = "";   
+		try {
 		        // Make the describe call
 		    	DescribeSObjectResult describeSObjectResult = connection.describeSObject( object);
 			        
@@ -111,18 +112,19 @@ public class Extractor {
 	 */
 		public String getObject( String soql, PartnerConnection connection)
 		{
+			String objectN = "";
 			int from = soql.indexOf("FROM ");
 			int till = soql.indexOf(" ", from + 1);
 			if ( till == -1)
 			{
-		   		String object = soql.substring( from);				
+		   		objectN = soql.substring( from);				
 			} else {
-		   		String object = soql.substring( from, till);				
+		   		objectN = soql.substring( from, till);				
 			}
 			
-			System.out.println( "Object: " + object);
+			System.out.println( "Object: " + objectN);
 
-		    return object;
+		    return objectN;
 		}
 
 		/**
