@@ -56,7 +56,7 @@ public class Extractor {
    		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-		List<List<String>> objects = config.getParams().getObjects();
+		objectsClass objects = config.getParams().getObjects();
 		for( int i = 0; i < objects.size(); i++) {
 			System.out.println( objects.get(i));
 			for ( int a = 0; a < objects.get(i).size(); a++ ){
