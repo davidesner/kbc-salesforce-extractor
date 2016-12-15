@@ -56,8 +56,12 @@ public class Extractor {
    		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-		
-		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
+		List<List<String>> objects = config.getParams().getObjects();
+		for( int i = 0; i < objects.size(); i++) {
+    		System.out.println( "Processing object: " + objects.get(i)[0] + "//" + objects.get(i)[1]);
+		}
+	
+//		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
 				outTablesPath, config.getParams().getObject(), config.getParams().getSOQL());
 				
    		System.out.println( "All done");
