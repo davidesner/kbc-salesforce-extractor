@@ -57,13 +57,16 @@ public class Extractor {
    		
 		Extractor sfdown = new Extractor();
 		keboola.salesforce.extractor.config.objectsClass objects = config.getParams().getObjects();
-		for( int i = 0; i < objects.size(); i++) {
+		
+		System.out.println( objects.objectname);
+		
+/*		for( int i = 0; i < objects.size(); i++) {
 			System.out.println( objects.get(i));
 			for ( int a = 0; a < objects.get(i).size(); a++ ){
 	    		System.out.println( "Processing object: " + objects.get(i).get(a) + "//" + objects.get(i).get(a));				
 			}
 		}
-	
+	*/
 //		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
 //				outTablesPath, config.getParams().getObject(), config.getParams().getSOQL());
 				
