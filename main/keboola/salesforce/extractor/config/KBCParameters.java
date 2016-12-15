@@ -69,7 +69,7 @@ public class KBCParameters {
         parametersMap.put("securitytoken", securitytoken);
         parametersMap.put("sandbox", sandbox);
         parametersMap.put("object", object);
-        parametersMap.put("objects", objects)
+        parametersMap.put("objects", objects);
         parametersMap.put("soql", soql);
 
     }
