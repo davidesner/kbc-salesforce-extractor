@@ -25,6 +25,27 @@ import java.util.logging.Logger;
  * @updated Martin Humpolec <kbc at htns.cz>
  * @created 2015
  */
+
+public class objectsClass {
+	private List<String> objectname;
+	private List<String> objectsoql;
+	
+    public List<String> getObjectname() {
+        return objectname;
+    }
+
+    public void setObjectname(List<String> objectname) {
+        this.objectname = objectname;
+    }
+    public List<String> getObjectsoql() {
+        return objectsoql;
+    }
+
+    public void setObjectsoql(List<String> objectsoql) {
+        this.objectsoql = objectsoql;
+    }
+	
+}
 public class KBCParameters {
 
     private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken", "object", "soql"};
@@ -41,7 +62,7 @@ public class KBCParameters {
     @JsonProperty("object")
     private List<String> object;
     @JsonProperty("objects")
-    private List<List<String>> objects;
+    private objectsClass objects;
     @JsonProperty("soql")
     private List<String> soql;
     
@@ -52,7 +73,7 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") List<String> object, @JsonProperty("objects") List<List<String>> objects, @JsonProperty( "soql") List<String> soql
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") List<String> object, @JsonProperty("objects") objectsClass objects, @JsonProperty( "soql") List<String> soql
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
@@ -165,11 +186,11 @@ public class KBCParameters {
         this.object = object;
     }
 
-    public List<List<String>> getObjects() {
+    public objectsClass getObjects() {
     	return objects;
     }
     
-    public void setObjects(List<List<String>> objects) {
+    public void setObjects(objectsClass objects) {
     	this.objects = objects;
     }
     
