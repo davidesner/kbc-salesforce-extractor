@@ -58,7 +58,7 @@ public class Extractor {
 		Extractor sfdown = new Extractor();
 		keboola.salesforce.extractor.config.objectsClass objects = config.getParams().getObjects();
 		
-		System.out.println( objects.objectname);
+		System.out.println( objects.getObjectname());
 		
 /*		for( int i = 0; i < objects.size(); i++) {
 			System.out.println( objects.get(i));
