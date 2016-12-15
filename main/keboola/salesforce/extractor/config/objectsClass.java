@@ -1,4 +1,5 @@
 package keboola.salesforce.extractor.config;
+import java.util.List;
 
 public class objectsClass {
 	private List<String> objectname;
