@@ -58,7 +58,10 @@ public class Extractor {
 		Extractor sfdown = new Extractor();
 		List<List<String>> objects = config.getParams().getObjects();
 		for( int i = 0; i < objects.size(); i++) {
-    		System.out.println( "Processing object: " + objects.get(i)[0] + "//" + objects.get(i)[1]);
+			System.out.println( objects.get(i));
+			for ( int a = 0; a < objects.get(i).size(); a++ ){
+	    		System.out.println( "Processing object: " + objects.get(i).get(a) + "//" + objects.get(i).get(a));				
+			}
 		}
 	
 //		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
