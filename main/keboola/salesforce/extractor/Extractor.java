@@ -62,7 +62,7 @@ public class Extractor {
 		}
 	
 //		sfdown.runQueries( config.getParams().getLoginname(), config.getParams().getPassword() + config.getParams().getSecuritytoken(), config.getParams().getSandbox(), 
-				outTablesPath, config.getParams().getObject(), config.getParams().getSOQL());
+//				outTablesPath, config.getParams().getObject(), config.getParams().getSOQL());
 				
    		System.out.println( "All done");
 	}
