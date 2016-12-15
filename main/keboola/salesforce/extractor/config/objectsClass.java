@@ -1,3 +1,5 @@
+package keboola.salesforce.extractor.config;
+
 public class objectsClass {
 	private List<String> objectname;
 	private List<String> objectsoql;
