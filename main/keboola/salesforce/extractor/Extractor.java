@@ -12,6 +12,7 @@ import com.sforce.soap.partner.DescribeSObjectResult;
 
 import keboola.salesforce.extractor.config.JsonConfigParser;
 import keboola.salesforce.extractor.config.KBCConfig;
+import keboola.salesforce.extractor.config.ObjectsClass;
 
 /**
  *
@@ -56,9 +57,11 @@ public class Extractor {
    		System.out.println( "Everything ready, let's get some data from Salesforce, loginname: " + config.getParams().getLoginname());
    		
 		Extractor sfdown = new Extractor();
-		keboola.salesforce.extractor.config.objectsClass objects = config.getParams().getObjects();
-		
-		System.out.println( objects.getObjectname());
+		List<ObjectsClass> objects = config.getParams().getObjects();
+                
+                for(ObjectsClass object : objects){
+		System.out.println( object.getName());
+                }
 		
 /*		for( int i = 0; i < objects.size(); i++) {
 			System.out.println( objects.get(i));

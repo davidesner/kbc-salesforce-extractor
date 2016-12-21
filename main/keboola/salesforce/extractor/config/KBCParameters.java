@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 
 public class KBCParameters {
 
-    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken", "object", "soql"};
+    private final static String[] REQUIRED_FIELDS = {"loginname", "password", "securitytoken"};
     private final Map<String, Object> parametersMap;
 
     @JsonProperty("loginname")
@@ -40,12 +40,8 @@ public class KBCParameters {
     private String securitytoken;
     @JsonProperty("sandbox")
     private Boolean sandbox;
-    @JsonProperty("object")
-    private List<String> object;
     @JsonProperty("objects")
-    private List<List<String>> objects;
-    @JsonProperty("soql")
-    private List<String> soql;
+    private List<ObjectsClass> objects;
     
     public KBCParameters() {
         parametersMap = new HashMap();
@@ -54,25 +50,23 @@ public class KBCParameters {
 
     @JsonCreator
     public KBCParameters(@JsonProperty("loginname") String loginname, @JsonProperty("#password") String password,
-            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("object") List<String> object, @JsonProperty("objects") List<List<String>> objects, @JsonProperty( "soql") List<String> soql
+            @JsonProperty("#securitytoken") String securitytoken, @JsonProperty("objects") List<ObjectsClass> objects, @JsonProperty( "sandbox") Boolean sandbox
     ) throws ParseException {
         parametersMap = new HashMap();
         this.loginname = loginname;
         this.password = password;
         this.securitytoken = securitytoken;
-        this.sandbox = sandbox;
-        this.object = object;
+        this.sandbox = sandbox;       
         this.objects = objects;
-        this.soql = soql;
+        
 
         //set param map
         parametersMap.put("loginname", loginname);
         parametersMap.put("password", password);
         parametersMap.put("securitytoken", securitytoken);
-        parametersMap.put("sandbox", sandbox);
-        parametersMap.put("object", object);
+        parametersMap.put("sandbox", sandbox);       
         parametersMap.put("objects", objects);
-        parametersMap.put("soql", soql);
+        
 
     }
 
@@ -159,27 +153,14 @@ public class KBCParameters {
         this.sandbox = sandbox;
     }
 
-    public List<String> getObject() {
-        return object;
-    }
 
-    public void setObject(List<String> object) {
-        this.object = object;
-    }
-
-    public List<List<String>> getObjects() {
+    public List<ObjectsClass> getObjects() {
     	return objects;
     }
     
-    public void setObjects(List<List<String>> objects) {
+    public void setObjects(List<ObjectsClass> objects) {
     	this.objects = objects;
     }
     
-    public List<String> getSOQL() {
-        return soql;
-    }
 
-    public void setSOQL(List<String> soql) {
-        this.soql = soql;
-    }
 }

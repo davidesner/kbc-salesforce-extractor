@@ -5,4 +5,3 @@
 "soql": ["SELECT Name, ID FROM Account":""],
    "sandbox": false
 }
-
